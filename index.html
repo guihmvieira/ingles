@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>English Class &middot; 365 Aulas</title>
+<meta name="description" content="Curso de ingles em 365 aulas. Escolha uma aula para comecar.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#16233b; --ink-soft:#3d4d69; --muted:#7b8699;
+  --paper:#f6f3ec; --card:#ffffff; --line:#e3ddcf;
+  --brand:#1f6b58; --brand-soft:#e2efe9; --brand-ink:#0e3a2f;
+  --gold:#c98a2b; --gold-soft:#f6ecd6;
+  --radius:14px; --maxw:1080px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:'Public Sans',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  line-height:1.65;-webkit-font-smoothing:antialiased;}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+.serif{font-family:'Fraunces',Georgia,serif}
+:focus-visible{outline:3px solid var(--brand);outline-offset:2px;border-radius:6px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}}
+
+/* ---- topo / hero ---- */
+.hero{position:relative;overflow:hidden;background:var(--ink);color:#f4efe4;
+  padding:64px 0 72px;border-bottom:6px solid var(--gold);}
+.hero:before{content:"";position:absolute;inset:0;opacity:.10;
+  background-image:radial-gradient(circle at 1px 1px,#fff 1px,transparent 0);
+  background-size:26px 26px;}
+.hero .wrap{position:relative}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;font-weight:600;
+  letter-spacing:.16em;text-transform:uppercase;font-size:12px;color:#d8c79c;margin-bottom:18px}
+.eyebrow:before{content:"";width:26px;height:2px;background:var(--gold);display:inline-block}
+.hero h1{font-weight:900;font-size:clamp(40px,7vw,76px);line-height:.98;margin:0 0 6px;letter-spacing:-.02em}
+.hero h1 .amp{color:var(--gold);font-style:italic}
+.hero p{max-width:52ch;color:#cdd6d0;font-size:18px;margin:14px 0 0}
+.hero-stats{display:flex;gap:30px;margin-top:34px;flex-wrap:wrap}
+.stat b{font-family:'Fraunces',serif;font-size:34px;font-weight:900;display:block;line-height:1}
+.stat span{font-size:13px;color:#a9b6ae;letter-spacing:.04em;text-transform:uppercase}
+/* ---- barra de ferramentas ---- */
+.toolbar{position:sticky;top:0;z-index:20;background:rgba(246,243,236,.92);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:14px 0}
+.toolbar .wrap{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.search{flex:1;min-width:220px;position:relative}
+.search input{width:100%;padding:12px 14px 12px 42px;border:1.5px solid var(--line);
+  border-radius:11px;background:var(--card);font-size:15px;color:var(--ink);font-family:inherit}
+.search input:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-soft)}
+.search svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--muted)}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{font-size:13px;font-weight:600;padding:8px 13px;border:1px solid var(--line);
+  border-radius:999px;background:var(--card);color:var(--ink-soft);transition:.15s}
+.chip:hover{border-color:var(--brand);color:var(--brand-ink);background:var(--brand-soft)}
+/* ---- grade de aulas ---- */
+main{padding:38px 0 70px}
+.section-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin:0 0 20px}
+.section-head h2{font-weight:600;font-size:22px;margin:0}
+.section-head .hint{color:var(--muted);font-size:14px}
+.grid{display:grid;gap:12px;
+  grid-template-columns:repeat(auto-fill,minmax(112px,1fr))}
+.tile{position:relative;background:var(--card);border:1px solid var(--line);
+  border-radius:var(--radius);padding:16px 12px 14px;text-align:center;
+  display:flex;flex-direction:column;align-items:center;gap:2px;transition:.16s ease;overflow:hidden}
+.tile:before{content:"";position:absolute;left:0;top:0;height:4px;width:100%;
+  background:var(--brand);transform:scaleX(0);transform-origin:left;transition:.2s}
+.tile:hover{border-color:var(--brand);transform:translateY(-3px);
+  box-shadow:0 10px 22px -14px rgba(22,35,59,.5)}
+.tile:hover:before{transform:scaleX(1)}
+.tile-tag{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.tile-num{font-family:'Fraunces',serif;font-weight:900;font-size:30px;line-height:1;color:var(--ink)}
+.tile:hover .tile-num{color:var(--brand-ink)}
+.empty{display:none;text-align:center;padding:50px 20px;color:var(--muted)}
+.empty.show{display:block}
+.divider{grid-column:1/-1;display:flex;align-items:center;gap:14px;margin:26px 0 8px;
+  color:var(--gold);font-family:'Fraunces',serif;font-weight:600;font-size:15px;letter-spacing:.05em}
+.divider:before,.divider:after{content:"";height:1px;background:var(--line);flex:1}
+/* ---- rodape ---- */
+footer{background:var(--ink);color:#aeb9b0;padding:34px 0;text-align:center;font-size:14px}
+footer b{color:#f4efe4;font-family:'Fraunces',serif}
+@media(max-width:560px){
+  .grid{grid-template-columns:repeat(auto-fill,minmax(92px,1fr))}
+  .tile-num{font-size:25px}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Ezequiel 12</span>
+    <h1 class="serif">Bora para <span class="amp">USA</span></h1>
+    <p>NÃO DESISTA, você tem um CHAMADO. <br>Escolha uma aula abaixo e comece a praticar.</p>
+    </div>
+</header>
+
+<nav class="toolbar" aria-label="Buscar e navegar">
+  <div class="wrap">
+    <div class="search">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path></svg>
+      <input id="busca" type="search" inputmode="numeric" placeholder="Digite o n&uacute;mero da aula (ex.: 47)" aria-label="Buscar aula pelo n&uacute;mero">
+    </div>
+    <div class="chips" aria-label="Ir para o bloco">
+        <a class="chip" href="#bloco-1">1&ndash;50</a>
+        <a class="chip" href="#bloco-51">51&ndash;100</a>
+        <a class="chip" href="#bloco-101">101&ndash;150</a>
+        <a class="chip" href="#bloco-151">151&ndash;200</a>
+        <a class="chip" href="#bloco-201">201&ndash;250</a>
+        <a class="chip" href="#bloco-251">251&ndash;300</a>
+        <a class="chip" href="#bloco-301">301&ndash;350</a>
+        <a class="chip" href="#bloco-351">351&ndash;365</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Todas as aulas</h2>
+      <span class="hint" id="contador">365 aulas</span>
+    </div>
+    <div class="grid" id="grade">
+      <div class="divider" aria-hidden="true">Aulas 1&ndash;50</div>
+      <a class="tile" id="bloco-1" href="aula-001.html" data-num="1" aria-label="Abrir Aula 1"><span class="tile-tag">Aula</span><span class="tile-num">01</span></a>
+      <a class="tile" href="aula-002.html" data-num="2" aria-label="Abrir Aula 2"><span class="tile-tag">Aula</span><span class="tile-num">02</span></a>
+      <a class="tile" href="aula-003.html" data-num="3" aria-label="Abrir Aula 3"><span class="tile-tag">Aula</span><span class="tile-num">03</span></a>
+      <a class="tile" href="aula-004.html" data-num="4" aria-label="Abrir Aula 4"><span class="tile-tag">Aula</span><span class="tile-num">04</span></a>
+      <a class="tile" href="aula-005.html" data-num="5" aria-label="Abrir Aula 5"><span class="tile-tag">Aula</span><span class="tile-num">05</span></a>
+      <a class="tile" href="aula-006.html" data-num="6" aria-label="Abrir Aula 6"><span class="tile-tag">Aula</span><span class="tile-num">06</span></a>
+      <a class="tile" href="aula-007.html" data-num="7" aria-label="Abrir Aula 7"><span class="tile-tag">Aula</span><span class="tile-num">07</span></a>
+      <a class="tile" href="aula-008.html" data-num="8" aria-label="Abrir Aula 8"><span class="tile-tag">Aula</span><span class="tile-num">08</span></a>
+      <a class="tile" href="aula-009.html" data-num="9" aria-label="Abrir Aula 9"><span class="tile-tag">Aula</span><span class="tile-num">09</span></a>
+      <a class="tile" href="aula-010.html" data-num="10" aria-label="Abrir Aula 10"><span class="tile-tag">Aula</span><span class="tile-num">10</span></a>
+      <a class="tile" href="aula-011.html" data-num="11" aria-label="Abrir Aula 11"><span class="tile-tag">Aula</span><span class="tile-num">11</span></a>
+      <a class="tile" href="aula-012.html" data-num="12" aria-label="Abrir Aula 12"><span class="tile-tag">Aula</span><span class="tile-num">12</span></a>
+      <a class="tile" href="aula-013.html" data-num="13" aria-label="Abrir Aula 13"><span class="tile-tag">Aula</span><span class="tile-num">13</span></a>
+      <a class="tile" href="aula-014.html" data-num="14" aria-label="Abrir Aula 14"><span class="tile-tag">Aula</span><span class="tile-num">14</span></a>
+      <a class="tile" href="aula-015.html" data-num="15" aria-label="Abrir Aula 15"><span class="tile-tag">Aula</span><span class="tile-num">15</span></a>
+      <a class="tile" href="aula-016.html" data-num="16" aria-label="Abrir Aula 16"><span class="tile-tag">Aula</span><span class="tile-num">16</span></a>
+      <a class="tile" href="aula-017.html" data-num="17" aria-label="Abrir Aula 17"><span class="tile-tag">Aula</span><span class="tile-num">17</span></a>
+      <a class="tile" href="aula-018.html" data-num="18" aria-label="Abrir Aula 18"><span class="tile-tag">Aula</span><span class="tile-num">18</span></a>
+      <a class="tile" href="aula-019.html" data-num="19" aria-label="Abrir Aula 19"><span class="tile-tag">Aula</span><span class="tile-num">19</span></a>
+      <a class="tile" href="aula-020.html" data-num="20" aria-label="Abrir Aula 20"><span class="tile-tag">Aula</span><span class="tile-num">20</span></a>
+      <a class="tile" href="aula-021.html" data-num="21" aria-label="Abrir Aula 21"><span class="tile-tag">Aula</span><span class="tile-num">21</span></a>
+      <a class="tile" href="aula-022.html" data-num="22" aria-label="Abrir Aula 22"><span class="tile-tag">Aula</span><span class="tile-num">22</span></a>
+      <a class="tile" href="aula-023.html" data-num="23" aria-label="Abrir Aula 23"><span class="tile-tag">Aula</span><span class="tile-num">23</span></a>
+      <a class="tile" href="aula-024.html" data-num="24" aria-label="Abrir Aula 24"><span class="tile-tag">Aula</span><span class="tile-num">24</span></a>
+      <a class="tile" href="aula-025.html" data-num="25" aria-label="Abrir Aula 25"><span class="tile-tag">Aula</span><span class="tile-num">25</span></a>
+      <a class="tile" href="aula-026.html" data-num="26" aria-label="Abrir Aula 26"><span class="tile-tag">Aula</span><span class="tile-num">26</span></a>
+      <a class="tile" href="aula-027.html" data-num="27" aria-label="Abrir Aula 27"><span class="tile-tag">Aula</span><span class="tile-num">27</span></a>
+      <a class="tile" href="aula-028.html" data-num="28" aria-label="Abrir Aula 28"><span class="tile-tag">Aula</span><span class="tile-num">28</span></a>
+      <a class="tile" href="aula-029.html" data-num="29" aria-label="Abrir Aula 29"><span class="tile-tag">Aula</span><span class="tile-num">29</span></a>
+      <a class="tile" href="aula-030.html" data-num="30" aria-label="Abrir Aula 30"><span class="tile-tag">Aula</span><span class="tile-num">30</span></a>
+      <a class="tile" href="aula-031.html" data-num="31" aria-label="Abrir Aula 31"><span class="tile-tag">Aula</span><span class="tile-num">31</span></a>
+      <a class="tile" href="aula-032.html" data-num="32" aria-label="Abrir Aula 32"><span class="tile-tag">Aula</span><span class="tile-num">32</span></a>
+      <a class="tile" href="aula-033.html" data-num="33" aria-label="Abrir Aula 33"><span class="tile-tag">Aula</span><span class="tile-num">33</span></a>
+      <a class="tile" href="aula-034.html" data-num="34" aria-label="Abrir Aula 34"><span class="tile-tag">Aula</span><span class="tile-num">34</span></a>
+      <a class="tile" href="aula-035.html" data-num="35" aria-label="Abrir Aula 35"><span class="tile-tag">Aula</span><span class="tile-num">35</span></a>
+      <a class="tile" href="aula-036.html" data-num="36" aria-label="Abrir Aula 36"><span class="tile-tag">Aula</span><span class="tile-num">36</span></a>
+      <a class="tile" href="aula-037.html" data-num="37" aria-label="Abrir Aula 37"><span class="tile-tag">Aula</span><span class="tile-num">37</span></a>
+      <a class="tile" href="aula-038.html" data-num="38" aria-label="Abrir Aula 38"><span class="tile-tag">Aula</span><span class="tile-num">38</span></a>
+      <a class="tile" href="aula-039.html" data-num="39" aria-label="Abrir Aula 39"><span class="tile-tag">Aula</span><span class="tile-num">39</span></a>
+      <a class="tile" href="aula-040.html" data-num="40" aria-label="Abrir Aula 40"><span class="tile-tag">Aula</span><span class="tile-num">40</span></a>
+      <a class="tile" href="aula-041.html" data-num="41" aria-label="Abrir Aula 41"><span class="tile-tag">Aula</span><span class="tile-num">41</span></a>
+      <a class="tile" href="aula-042.html" data-num="42" aria-label="Abrir Aula 42"><span class="tile-tag">Aula</span><span class="tile-num">42</span></a>
+      <a class="tile" href="aula-043.html" data-num="43" aria-label="Abrir Aula 43"><span class="tile-tag">Aula</span><span class="tile-num">43</span></a>
+      <a class="tile" href="aula-044.html" data-num="44" aria-label="Abrir Aula 44"><span class="tile-tag">Aula</span><span class="tile-num">44</span></a>
+      <a class="tile" href="aula-045.html" data-num="45" aria-label="Abrir Aula 45"><span class="tile-tag">Aula</span><span class="tile-num">45</span></a>
+      <a class="tile" href="aula-046.html" data-num="46" aria-label="Abrir Aula 46"><span class="tile-tag">Aula</span><span class="tile-num">46</span></a>
+      <a class="tile" href="aula-047.html" data-num="47" aria-label="Abrir Aula 47"><span class="tile-tag">Aula</span><span class="tile-num">47</span></a>
+      <a class="tile" href="aula-048.html" data-num="48" aria-label="Abrir Aula 48"><span class="tile-tag">Aula</span><span class="tile-num">48</span></a>
+      <a class="tile" href="aula-049.html" data-num="49" aria-label="Abrir Aula 49"><span class="tile-tag">Aula</span><span class="tile-num">49</span></a>
+      <a class="tile" href="aula-050.html" data-num="50" aria-label="Abrir Aula 50"><span class="tile-tag">Aula</span><span class="tile-num">50</span></a>
+      <div class="divider" aria-hidden="true">Aulas 51&ndash;100</div>
+      <a class="tile" id="bloco-51" href="aula-051.html" data-num="51" aria-label="Abrir Aula 51"><span class="tile-tag">Aula</span><span class="tile-num">51</span></a>
+      <a class="tile" href="aula-052.html" data-num="52" aria-label="Abrir Aula 52"><span class="tile-tag">Aula</span><span class="tile-num">52</span></a>
+      <a class="tile" href="aula-053.html" data-num="53" aria-label="Abrir Aula 53"><span class="tile-tag">Aula</span><span class="tile-num">53</span></a>
+      <a class="tile" href="aula-054.html" data-num="54" aria-label="Abrir Aula 54"><span class="tile-tag">Aula</span><span class="tile-num">54</span></a>
+      <a class="tile" href="aula-055.html" data-num="55" aria-label="Abrir Aula 55"><span class="tile-tag">Aula</span><span class="tile-num">55</span></a>
+      <a class="tile" href="aula-056.html" data-num="56" aria-label="Abrir Aula 56"><span class="tile-tag">Aula</span><span class="tile-num">56</span></a>
+      <a class="tile" href="aula-057.html" data-num="57" aria-label="Abrir Aula 57"><span class="tile-tag">Aula</span><span class="tile-num">57</span></a>
+      <a class="tile" href="aula-058.html" data-num="58" aria-label="Abrir Aula 58"><span class="tile-tag">Aula</span><span class="tile-num">58</span></a>
+      <a class="tile" href="aula-059.html" data-num="59" aria-label="Abrir Aula 59"><span class="tile-tag">Aula</span><span class="tile-num">59</span></a>
+      <a class="tile" href="aula-060.html" data-num="60" aria-label="Abrir Aula 60"><span class="tile-tag">Aula</span><span class="tile-num">60</span></a>
+      <a class="tile" href="aula-061.html" data-num="61" aria-label="Abrir Aula 61"><span class="tile-tag">Aula</span><span class="tile-num">61</span></a>
+      <a class="tile" href="aula-062.html" data-num="62" aria-label="Abrir Aula 62"><span class="tile-tag">Aula</span><span class="tile-num">62</span></a>
+      <a class="tile" href="aula-063.html" data-num="63" aria-label="Abrir Aula 63"><span class="tile-tag">Aula</span><span class="tile-num">63</span></a>
+      <a class="tile" href="aula-064.html" data-num="64" aria-label="Abrir Aula 64"><span class="tile-tag">Aula</span><span class="tile-num">64</span></a>
+      <a class="tile" href="aula-065.html" data-num="65" aria-label="Abrir Aula 65"><span class="tile-tag">Aula</span><span class="tile-num">65</span></a>
+      <a class="tile" href="aula-066.html" data-num="66" aria-label="Abrir Aula 66"><span class="tile-tag">Aula</span><span class="tile-num">66</span></a>
+      <a class="tile" href="aula-067.html" data-num="67" aria-label="Abrir Aula 67"><span class="tile-tag">Aula</span><span class="tile-num">67</span></a>
+      <a class="tile" href="aula-068.html" data-num="68" aria-label="Abrir Aula 68"><span class="tile-tag">Aula</span><span class="tile-num">68</span></a>
+      <a class="tile" href="aula-069.html" data-num="69" aria-label="Abrir Aula 69"><span class="tile-tag">Aula</span><span class="tile-num">69</span></a>
+      <a class="tile" href="aula-070.html" data-num="70" aria-label="Abrir Aula 70"><span class="tile-tag">Aula</span><span class="tile-num">70</span></a>
+      <a class="tile" href="aula-071.html" data-num="71" aria-label="Abrir Aula 71"><span class="tile-tag">Aula</span><span class="tile-num">71</span></a>
+      <a class="tile" href="aula-072.html" data-num="72" aria-label="Abrir Aula 72"><span class="tile-tag">Aula</span><span class="tile-num">72</span></a>
+      <a class="tile" href="aula-073.html" data-num="73" aria-label="Abrir Aula 73"><span class="tile-tag">Aula</span><span class="tile-num">73</span></a>
+      <a class="tile" href="aula-074.html" data-num="74" aria-label="Abrir Aula 74"><span class="tile-tag">Aula</span><span class="tile-num">74</span></a>
+      <a class="tile" href="aula-075.html" data-num="75" aria-label="Abrir Aula 75"><span class="tile-tag">Aula</span><span class="tile-num">75</span></a>
+      <a class="tile" href="aula-076.html" data-num="76" aria-label="Abrir Aula 76"><span class="tile-tag">Aula</span><span class="tile-num">76</span></a>
+      <a class="tile" href="aula-077.html" data-num="77" aria-label="Abrir Aula 77"><span class="tile-tag">Aula</span><span class="tile-num">77</span></a>
+      <a class="tile" href="aula-078.html" data-num="78" aria-label="Abrir Aula 78"><span class="tile-tag">Aula</span><span class="tile-num">78</span></a>
+      <a class="tile" href="aula-079.html" data-num="79" aria-label="Abrir Aula 79"><span class="tile-tag">Aula</span><span class="tile-num">79</span></a>
+      <a class="tile" href="aula-080.html" data-num="80" aria-label="Abrir Aula 80"><span class="tile-tag">Aula</span><span class="tile-num">80</span></a>
+      <a class="tile" href="aula-081.html" data-num="81" aria-label="Abrir Aula 81"><span class="tile-tag">Aula</span><span class="tile-num">81</span></a>
+      <a class="tile" href="aula-082.html" data-num="82" aria-label="Abrir Aula 82"><span class="tile-tag">Aula</span><span class="tile-num">82</span></a>
+      <a class="tile" href="aula-083.html" data-num="83" aria-label="Abrir Aula 83"><span class="tile-tag">Aula</span><span class="tile-num">83</span></a>
+      <a class="tile" href="aula-084.html" data-num="84" aria-label="Abrir Aula 84"><span class="tile-tag">Aula</span><span class="tile-num">84</span></a>
+      <a class="tile" href="aula-085.html" data-num="85" aria-label="Abrir Aula 85"><span class="tile-tag">Aula</span><span class="tile-num">85</span></a>
+      <a class="tile" href="aula-086.html" data-num="86" aria-label="Abrir Aula 86"><span class="tile-tag">Aula</span><span class="tile-num">86</span></a>
+      <a class="tile" href="aula-087.html" data-num="87" aria-label="Abrir Aula 87"><span class="tile-tag">Aula</span><span class="tile-num">87</span></a>
+      <a class="tile" href="aula-088.html" data-num="88" aria-label="Abrir Aula 88"><span class="tile-tag">Aula</span><span class="tile-num">88</span></a>
+      <a class="tile" href="aula-089.html" data-num="89" aria-label="Abrir Aula 89"><span class="tile-tag">Aula</span><span class="tile-num">89</span></a>
+      <a class="tile" href="aula-090.html" data-num="90" aria-label="Abrir Aula 90"><span class="tile-tag">Aula</span><span class="tile-num">90</span></a>
+      <a class="tile" href="aula-091.html" data-num="91" aria-label="Abrir Aula 91"><span class="tile-tag">Aula</span><span class="tile-num">91</span></a>
+      <a class="tile" href="aula-092.html" data-num="92" aria-label="Abrir Aula 92"><span class="tile-tag">Aula</span><span class="tile-num">92</span></a>
+      <a class="tile" href="aula-093.html" data-num="93" aria-label="Abrir Aula 93"><span class="tile-tag">Aula</span><span class="tile-num">93</span></a>
+      <a class="tile" href="aula-094.html" data-num="94" aria-label="Abrir Aula 94"><span class="tile-tag">Aula</span><span class="tile-num">94</span></a>
+      <a class="tile" href="aula-095.html" data-num="95" aria-label="Abrir Aula 95"><span class="tile-tag">Aula</span><span class="tile-num">95</span></a>
+      <a class="tile" href="aula-096.html" data-num="96" aria-label="Abrir Aula 96"><span class="tile-tag">Aula</span><span class="tile-num">96</span></a>
+      <a class="tile" href="aula-097.html" data-num="97" aria-label="Abrir Aula 97"><span class="tile-tag">Aula</span><span class="tile-num">97</span></a>
+      <a class="tile" href="aula-098.html" data-num="98" aria-label="Abrir Aula 98"><span class="tile-tag">Aula</span><span class="tile-num">98</span></a>
+      <a class="tile" href="aula-099.html" data-num="99" aria-label="Abrir Aula 99"><span class="tile-tag">Aula</span><span class="tile-num">99</span></a>
+      <a class="tile" href="aula-100.html" data-num="100" aria-label="Abrir Aula 100"><span class="tile-tag">Aula</span><span class="tile-num">100</span></a>
+      <div class="divider" aria-hidden="true">Aulas 101&ndash;150</div>
+      <a class="tile" id="bloco-101" href="aula-101.html" data-num="101" aria-label="Abrir Aula 101"><span class="tile-tag">Aula</span><span class="tile-num">101</span></a>
+      <a class="tile" href="aula-102.html" data-num="102" aria-label="Abrir Aula 102"><span class="tile-tag">Aula</span><span class="tile-num">102</span></a>
+      <a class="tile" href="aula-103.html" data-num="103" aria-label="Abrir Aula 103"><span class="tile-tag">Aula</span><span class="tile-num">103</span></a>
+      <a class="tile" href="aula-104.html" data-num="104" aria-label="Abrir Aula 104"><span class="tile-tag">Aula</span><span class="tile-num">104</span></a>
+      <a class="tile" href="aula-105.html" data-num="105" aria-label="Abrir Aula 105"><span class="tile-tag">Aula</span><span class="tile-num">105</span></a>
+      <a class="tile" href="aula-106.html" data-num="106" aria-label="Abrir Aula 106"><span class="tile-tag">Aula</span><span class="tile-num">106</span></a>
+      <a class="tile" href="aula-107.html" data-num="107" aria-label="Abrir Aula 107"><span class="tile-tag">Aula</span><span class="tile-num">107</span></a>
+      <a class="tile" href="aula-108.html" data-num="108" aria-label="Abrir Aula 108"><span class="tile-tag">Aula</span><span class="tile-num">108</span></a>
+      <a class="tile" href="aula-109.html" data-num="109" aria-label="Abrir Aula 109"><span class="tile-tag">Aula</span><span class="tile-num">109</span></a>
+      <a class="tile" href="aula-110.html" data-num="110" aria-label="Abrir Aula 110"><span class="tile-tag">Aula</span><span class="tile-num">110</span></a>
+      <a class="tile" href="aula-111.html" data-num="111" aria-label="Abrir Aula 111"><span class="tile-tag">Aula</span><span class="tile-num">111</span></a>
+      <a class="tile" href="aula-112.html" data-num="112" aria-label="Abrir Aula 112"><span class="tile-tag">Aula</span><span class="tile-num">112</span></a>
+      <a class="tile" href="aula-113.html" data-num="113" aria-label="Abrir Aula 113"><span class="tile-tag">Aula</span><span class="tile-num">113</span></a>
+      <a class="tile" href="aula-114.html" data-num="114" aria-label="Abrir Aula 114"><span class="tile-tag">Aula</span><span class="tile-num">114</span></a>
+      <a class="tile" href="aula-115.html" data-num="115" aria-label="Abrir Aula 115"><span class="tile-tag">Aula</span><span class="tile-num">115</span></a>
+      <a class="tile" href="aula-116.html" data-num="116" aria-label="Abrir Aula 116"><span class="tile-tag">Aula</span><span class="tile-num">116</span></a>
+      <a class="tile" href="aula-117.html" data-num="117" aria-label="Abrir Aula 117"><span class="tile-tag">Aula</span><span class="tile-num">117</span></a>
+      <a class="tile" href="aula-118.html" data-num="118" aria-label="Abrir Aula 118"><span class="tile-tag">Aula</span><span class="tile-num">118</span></a>
+      <a class="tile" href="aula-119.html" data-num="119" aria-label="Abrir Aula 119"><span class="tile-tag">Aula</span><span class="tile-num">119</span></a>
+      <a class="tile" href="aula-120.html" data-num="120" aria-label="Abrir Aula 120"><span class="tile-tag">Aula</span><span class="tile-num">120</span></a>
+      <a class="tile" href="aula-121.html" data-num="121" aria-label="Abrir Aula 121"><span class="tile-tag">Aula</span><span class="tile-num">121</span></a>
+      <a class="tile" href="aula-122.html" data-num="122" aria-label="Abrir Aula 122"><span class="tile-tag">Aula</span><span class="tile-num">122</span></a>
+      <a class="tile" href="aula-123.html" data-num="123" aria-label="Abrir Aula 123"><span class="tile-tag">Aula</span><span class="tile-num">123</span></a>
+      <a class="tile" href="aula-124.html" data-num="124" aria-label="Abrir Aula 124"><span class="tile-tag">Aula</span><span class="tile-num">124</span></a>
+      <a class="tile" href="aula-125.html" data-num="125" aria-label="Abrir Aula 125"><span class="tile-tag">Aula</span><span class="tile-num">125</span></a>
+      <a class="tile" href="aula-126.html" data-num="126" aria-label="Abrir Aula 126"><span class="tile-tag">Aula</span><span class="tile-num">126</span></a>
+      <a class="tile" href="aula-127.html" data-num="127" aria-label="Abrir Aula 127"><span class="tile-tag">Aula</span><span class="tile-num">127</span></a>
+      <a class="tile" href="aula-128.html" data-num="128" aria-label="Abrir Aula 128"><span class="tile-tag">Aula</span><span class="tile-num">128</span></a>
+      <a class="tile" href="aula-129.html" data-num="129" aria-label="Abrir Aula 129"><span class="tile-tag">Aula</span><span class="tile-num">129</span></a>
+      <a class="tile" href="aula-130.html" data-num="130" aria-label="Abrir Aula 130"><span class="tile-tag">Aula</span><span class="tile-num">130</span></a>
+      <a class="tile" href="aula-131.html" data-num="131" aria-label="Abrir Aula 131"><span class="tile-tag">Aula</span><span class="tile-num">131</span></a>
+      <a class="tile" href="aula-132.html" data-num="132" aria-label="Abrir Aula 132"><span class="tile-tag">Aula</span><span class="tile-num">132</span></a>
+      <a class="tile" href="aula-133.html" data-num="133" aria-label="Abrir Aula 133"><span class="tile-tag">Aula</span><span class="tile-num">133</span></a>
+      <a class="tile" href="aula-134.html" data-num="134" aria-label="Abrir Aula 134"><span class="tile-tag">Aula</span><span class="tile-num">134</span></a>
+      <a class="tile" href="aula-135.html" data-num="135" aria-label="Abrir Aula 135"><span class="tile-tag">Aula</span><span class="tile-num">135</span></a>
+      <a class="tile" href="aula-136.html" data-num="136" aria-label="Abrir Aula 136"><span class="tile-tag">Aula</span><span class="tile-num">136</span></a>
+      <a class="tile" href="aula-137.html" data-num="137" aria-label="Abrir Aula 137"><span class="tile-tag">Aula</span><span class="tile-num">137</span></a>
+      <a class="tile" href="aula-138.html" data-num="138" aria-label="Abrir Aula 138"><span class="tile-tag">Aula</span><span class="tile-num">138</span></a>
+      <a class="tile" href="aula-139.html" data-num="139" aria-label="Abrir Aula 139"><span class="tile-tag">Aula</span><span class="tile-num">139</span></a>
+      <a class="tile" href="aula-140.html" data-num="140" aria-label="Abrir Aula 140"><span class="tile-tag">Aula</span><span class="tile-num">140</span></a>
+      <a class="tile" href="aula-141.html" data-num="141" aria-label="Abrir Aula 141"><span class="tile-tag">Aula</span><span class="tile-num">141</span></a>
+      <a class="tile" href="aula-142.html" data-num="142" aria-label="Abrir Aula 142"><span class="tile-tag">Aula</span><span class="tile-num">142</span></a>
+      <a class="tile" href="aula-143.html" data-num="143" aria-label="Abrir Aula 143"><span class="tile-tag">Aula</span><span class="tile-num">143</span></a>
+      <a class="tile" href="aula-144.html" data-num="144" aria-label="Abrir Aula 144"><span class="tile-tag">Aula</span><span class="tile-num">144</span></a>
+      <a class="tile" href="aula-145.html" data-num="145" aria-label="Abrir Aula 145"><span class="tile-tag">Aula</span><span class="tile-num">145</span></a>
+      <a class="tile" href="aula-146.html" data-num="146" aria-label="Abrir Aula 146"><span class="tile-tag">Aula</span><span class="tile-num">146</span></a>
+      <a class="tile" href="aula-147.html" data-num="147" aria-label="Abrir Aula 147"><span class="tile-tag">Aula</span><span class="tile-num">147</span></a>
+      <a class="tile" href="aula-148.html" data-num="148" aria-label="Abrir Aula 148"><span class="tile-tag">Aula</span><span class="tile-num">148</span></a>
+      <a class="tile" href="aula-149.html" data-num="149" aria-label="Abrir Aula 149"><span class="tile-tag">Aula</span><span class="tile-num">149</span></a>
+      <a class="tile" href="aula-150.html" data-num="150" aria-label="Abrir Aula 150"><span class="tile-tag">Aula</span><span class="tile-num">150</span></a>
+      <div class="divider" aria-hidden="true">Aulas 151&ndash;200</div>
+      <a class="tile" id="bloco-151" href="aula-151.html" data-num="151" aria-label="Abrir Aula 151"><span class="tile-tag">Aula</span><span class="tile-num">151</span></a>
+      <a class="tile" href="aula-152.html" data-num="152" aria-label="Abrir Aula 152"><span class="tile-tag">Aula</span><span class="tile-num">152</span></a>
+      <a class="tile" href="aula-153.html" data-num="153" aria-label="Abrir Aula 153"><span class="tile-tag">Aula</span><span class="tile-num">153</span></a>
+      <a class="tile" href="aula-154.html" data-num="154" aria-label="Abrir Aula 154"><span class="tile-tag">Aula</span><span class="tile-num">154</span></a>
+      <a class="tile" href="aula-155.html" data-num="155" aria-label="Abrir Aula 155"><span class="tile-tag">Aula</span><span class="tile-num">155</span></a>
+      <a class="tile" href="aula-156.html" data-num="156" aria-label="Abrir Aula 156"><span class="tile-tag">Aula</span><span class="tile-num">156</span></a>
+      <a class="tile" href="aula-157.html" data-num="157" aria-label="Abrir Aula 157"><span class="tile-tag">Aula</span><span class="tile-num">157</span></a>
+      <a class="tile" href="aula-158.html" data-num="158" aria-label="Abrir Aula 158"><span class="tile-tag">Aula</span><span class="tile-num">158</span></a>
+      <a class="tile" href="aula-159.html" data-num="159" aria-label="Abrir Aula 159"><span class="tile-tag">Aula</span><span class="tile-num">159</span></a>
+      <a class="tile" href="aula-160.html" data-num="160" aria-label="Abrir Aula 160"><span class="tile-tag">Aula</span><span class="tile-num">160</span></a>
+      <a class="tile" href="aula-161.html" data-num="161" aria-label="Abrir Aula 161"><span class="tile-tag">Aula</span><span class="tile-num">161</span></a>
+      <a class="tile" href="aula-162.html" data-num="162" aria-label="Abrir Aula 162"><span class="tile-tag">Aula</span><span class="tile-num">162</span></a>
+      <a class="tile" href="aula-163.html" data-num="163" aria-label="Abrir Aula 163"><span class="tile-tag">Aula</span><span class="tile-num">163</span></a>
+      <a class="tile" href="aula-164.html" data-num="164" aria-label="Abrir Aula 164"><span class="tile-tag">Aula</span><span class="tile-num">164</span></a>
+      <a class="tile" href="aula-165.html" data-num="165" aria-label="Abrir Aula 165"><span class="tile-tag">Aula</span><span class="tile-num">165</span></a>
+      <a class="tile" href="aula-166.html" data-num="166" aria-label="Abrir Aula 166"><span class="tile-tag">Aula</span><span class="tile-num">166</span></a>
+      <a class="tile" href="aula-167.html" data-num="167" aria-label="Abrir Aula 167"><span class="tile-tag">Aula</span><span class="tile-num">167</span></a>
+      <a class="tile" href="aula-168.html" data-num="168" aria-label="Abrir Aula 168"><span class="tile-tag">Aula</span><span class="tile-num">168</span></a>
+      <a class="tile" href="aula-169.html" data-num="169" aria-label="Abrir Aula 169"><span class="tile-tag">Aula</span><span class="tile-num">169</span></a>
+      <a class="tile" href="aula-170.html" data-num="170" aria-label="Abrir Aula 170"><span class="tile-tag">Aula</span><span class="tile-num">170</span></a>
+      <a class="tile" href="aula-171.html" data-num="171" aria-label="Abrir Aula 171"><span class="tile-tag">Aula</span><span class="tile-num">171</span></a>
+      <a class="tile" href="aula-172.html" data-num="172" aria-label="Abrir Aula 172"><span class="tile-tag">Aula</span><span class="tile-num">172</span></a>
+      <a class="tile" href="aula-173.html" data-num="173" aria-label="Abrir Aula 173"><span class="tile-tag">Aula</span><span class="tile-num">173</span></a>
+      <a class="tile" href="aula-174.html" data-num="174" aria-label="Abrir Aula 174"><span class="tile-tag">Aula</span><span class="tile-num">174</span></a>
+      <a class="tile" href="aula-175.html" data-num="175" aria-label="Abrir Aula 175"><span class="tile-tag">Aula</span><span class="tile-num">175</span></a>
+      <a class="tile" href="aula-176.html" data-num="176" aria-label="Abrir Aula 176"><span class="tile-tag">Aula</span><span class="tile-num">176</span></a>
+      <a class="tile" href="aula-177.html" data-num="177" aria-label="Abrir Aula 177"><span class="tile-tag">Aula</span><span class="tile-num">177</span></a>
+      <a class="tile" href="aula-178.html" data-num="178" aria-label="Abrir Aula 178"><span class="tile-tag">Aula</span><span class="tile-num">178</span></a>
+      <a class="tile" href="aula-179.html" data-num="179" aria-label="Abrir Aula 179"><span class="tile-tag">Aula</span><span class="tile-num">179</span></a>
+      <a class="tile" href="aula-180.html" data-num="180" aria-label="Abrir Aula 180"><span class="tile-tag">Aula</span><span class="tile-num">180</span></a>
+      <a class="tile" href="aula-181.html" data-num="181" aria-label="Abrir Aula 181"><span class="tile-tag">Aula</span><span class="tile-num">181</span></a>
+      <a class="tile" href="aula-182.html" data-num="182" aria-label="Abrir Aula 182"><span class="tile-tag">Aula</span><span class="tile-num">182</span></a>
+      <a class="tile" href="aula-183.html" data-num="183" aria-label="Abrir Aula 183"><span class="tile-tag">Aula</span><span class="tile-num">183</span></a>
+      <a class="tile" href="aula-184.html" data-num="184" aria-label="Abrir Aula 184"><span class="tile-tag">Aula</span><span class="tile-num">184</span></a>
+      <a class="tile" href="aula-185.html" data-num="185" aria-label="Abrir Aula 185"><span class="tile-tag">Aula</span><span class="tile-num">185</span></a>
+      <a class="tile" href="aula-186.html" data-num="186" aria-label="Abrir Aula 186"><span class="tile-tag">Aula</span><span class="tile-num">186</span></a>
+      <a class="tile" href="aula-187.html" data-num="187" aria-label="Abrir Aula 187"><span class="tile-tag">Aula</span><span class="tile-num">187</span></a>
+      <a class="tile" href="aula-188.html" data-num="188" aria-label="Abrir Aula 188"><span class="tile-tag">Aula</span><span class="tile-num">188</span></a>
+      <a class="tile" href="aula-189.html" data-num="189" aria-label="Abrir Aula 189"><span class="tile-tag">Aula</span><span class="tile-num">189</span></a>
+      <a class="tile" href="aula-190.html" data-num="190" aria-label="Abrir Aula 190"><span class="tile-tag">Aula</span><span class="tile-num">190</span></a>
+      <a class="tile" href="aula-191.html" data-num="191" aria-label="Abrir Aula 191"><span class="tile-tag">Aula</span><span class="tile-num">191</span></a>
+      <a class="tile" href="aula-192.html" data-num="192" aria-label="Abrir Aula 192"><span class="tile-tag">Aula</span><span class="tile-num">192</span></a>
+      <a class="tile" href="aula-193.html" data-num="193" aria-label="Abrir Aula 193"><span class="tile-tag">Aula</span><span class="tile-num">193</span></a>
+      <a class="tile" href="aula-194.html" data-num="194" aria-label="Abrir Aula 194"><span class="tile-tag">Aula</span><span class="tile-num">194</span></a>
+      <a class="tile" href="aula-195.html" data-num="195" aria-label="Abrir Aula 195"><span class="tile-tag">Aula</span><span class="tile-num">195</span></a>
+      <a class="tile" href="aula-196.html" data-num="196" aria-label="Abrir Aula 196"><span class="tile-tag">Aula</span><span class="tile-num">196</span></a>
+      <a class="tile" href="aula-197.html" data-num="197" aria-label="Abrir Aula 197"><span class="tile-tag">Aula</span><span class="tile-num">197</span></a>
+      <a class="tile" href="aula-198.html" data-num="198" aria-label="Abrir Aula 198"><span class="tile-tag">Aula</span><span class="tile-num">198</span></a>
+      <a class="tile" href="aula-199.html" data-num="199" aria-label="Abrir Aula 199"><span class="tile-tag">Aula</span><span class="tile-num">199</span></a>
+      <a class="tile" href="aula-200.html" data-num="200" aria-label="Abrir Aula 200"><span class="tile-tag">Aula</span><span class="tile-num">200</span></a>
+      <div class="divider" aria-hidden="true">Aulas 201&ndash;250</div>
+      <a class="tile" id="bloco-201" href="aula-201.html" data-num="201" aria-label="Abrir Aula 201"><span class="tile-tag">Aula</span><span class="tile-num">201</span></a>
+      <a class="tile" href="aula-202.html" data-num="202" aria-label="Abrir Aula 202"><span class="tile-tag">Aula</span><span class="tile-num">202</span></a>
+      <a class="tile" href="aula-203.html" data-num="203" aria-label="Abrir Aula 203"><span class="tile-tag">Aula</span><span class="tile-num">203</span></a>
+      <a class="tile" href="aula-204.html" data-num="204" aria-label="Abrir Aula 204"><span class="tile-tag">Aula</span><span class="tile-num">204</span></a>
+      <a class="tile" href="aula-205.html" data-num="205" aria-label="Abrir Aula 205"><span class="tile-tag">Aula</span><span class="tile-num">205</span></a>
+      <a class="tile" href="aula-206.html" data-num="206" aria-label="Abrir Aula 206"><span class="tile-tag">Aula</span><span class="tile-num">206</span></a>
+      <a class="tile" href="aula-207.html" data-num="207" aria-label="Abrir Aula 207"><span class="tile-tag">Aula</span><span class="tile-num">207</span></a>
+      <a class="tile" href="aula-208.html" data-num="208" aria-label="Abrir Aula 208"><span class="tile-tag">Aula</span><span class="tile-num">208</span></a>
+      <a class="tile" href="aula-209.html" data-num="209" aria-label="Abrir Aula 209"><span class="tile-tag">Aula</span><span class="tile-num">209</span></a>
+      <a class="tile" href="aula-210.html" data-num="210" aria-label="Abrir Aula 210"><span class="tile-tag">Aula</span><span class="tile-num">210</span></a>
+      <a class="tile" href="aula-211.html" data-num="211" aria-label="Abrir Aula 211"><span class="tile-tag">Aula</span><span class="tile-num">211</span></a>
+      <a class="tile" href="aula-212.html" data-num="212" aria-label="Abrir Aula 212"><span class="tile-tag">Aula</span><span class="tile-num">212</span></a>
+      <a class="tile" href="aula-213.html" data-num="213" aria-label="Abrir Aula 213"><span class="tile-tag">Aula</span><span class="tile-num">213</span></a>
+      <a class="tile" href="aula-214.html" data-num="214" aria-label="Abrir Aula 214"><span class="tile-tag">Aula</span><span class="tile-num">214</span></a>
+      <a class="tile" href="aula-215.html" data-num="215" aria-label="Abrir Aula 215"><span class="tile-tag">Aula</span><span class="tile-num">215</span></a>
+      <a class="tile" href="aula-216.html" data-num="216" aria-label="Abrir Aula 216"><span class="tile-tag">Aula</span><span class="tile-num">216</span></a>
+      <a class="tile" href="aula-217.html" data-num="217" aria-label="Abrir Aula 217"><span class="tile-tag">Aula</span><span class="tile-num">217</span></a>
+      <a class="tile" href="aula-218.html" data-num="218" aria-label="Abrir Aula 218"><span class="tile-tag">Aula</span><span class="tile-num">218</span></a>
+      <a class="tile" href="aula-219.html" data-num="219" aria-label="Abrir Aula 219"><span class="tile-tag">Aula</span><span class="tile-num">219</span></a>
+      <a class="tile" href="aula-220.html" data-num="220" aria-label="Abrir Aula 220"><span class="tile-tag">Aula</span><span class="tile-num">220</span></a>
+      <a class="tile" href="aula-221.html" data-num="221" aria-label="Abrir Aula 221"><span class="tile-tag">Aula</span><span class="tile-num">221</span></a>
+      <a class="tile" href="aula-222.html" data-num="222" aria-label="Abrir Aula 222"><span class="tile-tag">Aula</span><span class="tile-num">222</span></a>
+      <a class="tile" href="aula-223.html" data-num="223" aria-label="Abrir Aula 223"><span class="tile-tag">Aula</span><span class="tile-num">223</span></a>
+      <a class="tile" href="aula-224.html" data-num="224" aria-label="Abrir Aula 224"><span class="tile-tag">Aula</span><span class="tile-num">224</span></a>
+      <a class="tile" href="aula-225.html" data-num="225" aria-label="Abrir Aula 225"><span class="tile-tag">Aula</span><span class="tile-num">225</span></a>
+      <a class="tile" href="aula-226.html" data-num="226" aria-label="Abrir Aula 226"><span class="tile-tag">Aula</span><span class="tile-num">226</span></a>
+      <a class="tile" href="aula-227.html" data-num="227" aria-label="Abrir Aula 227"><span class="tile-tag">Aula</span><span class="tile-num">227</span></a>
+      <a class="tile" href="aula-228.html" data-num="228" aria-label="Abrir Aula 228"><span class="tile-tag">Aula</span><span class="tile-num">228</span></a>
+      <a class="tile" href="aula-229.html" data-num="229" aria-label="Abrir Aula 229"><span class="tile-tag">Aula</span><span class="tile-num">229</span></a>
+      <a class="tile" href="aula-230.html" data-num="230" aria-label="Abrir Aula 230"><span class="tile-tag">Aula</span><span class="tile-num">230</span></a>
+      <a class="tile" href="aula-231.html" data-num="231" aria-label="Abrir Aula 231"><span class="tile-tag">Aula</span><span class="tile-num">231</span></a>
+      <a class="tile" href="aula-232.html" data-num="232" aria-label="Abrir Aula 232"><span class="tile-tag">Aula</span><span class="tile-num">232</span></a>
+      <a class="tile" href="aula-233.html" data-num="233" aria-label="Abrir Aula 233"><span class="tile-tag">Aula</span><span class="tile-num">233</span></a>
+      <a class="tile" href="aula-234.html" data-num="234" aria-label="Abrir Aula 234"><span class="tile-tag">Aula</span><span class="tile-num">234</span></a>
+      <a class="tile" href="aula-235.html" data-num="235" aria-label="Abrir Aula 235"><span class="tile-tag">Aula</span><span class="tile-num">235</span></a>
+      <a class="tile" href="aula-236.html" data-num="236" aria-label="Abrir Aula 236"><span class="tile-tag">Aula</span><span class="tile-num">236</span></a>
+      <a class="tile" href="aula-237.html" data-num="237" aria-label="Abrir Aula 237"><span class="tile-tag">Aula</span><span class="tile-num">237</span></a>
+      <a class="tile" href="aula-238.html" data-num="238" aria-label="Abrir Aula 238"><span class="tile-tag">Aula</span><span class="tile-num">238</span></a>
+      <a class="tile" href="aula-239.html" data-num="239" aria-label="Abrir Aula 239"><span class="tile-tag">Aula</span><span class="tile-num">239</span></a>
+      <a class="tile" href="aula-240.html" data-num="240" aria-label="Abrir Aula 240"><span class="tile-tag">Aula</span><span class="tile-num">240</span></a>
+      <a class="tile" href="aula-241.html" data-num="241" aria-label="Abrir Aula 241"><span class="tile-tag">Aula</span><span class="tile-num">241</span></a>
+      <a class="tile" href="aula-242.html" data-num="242" aria-label="Abrir Aula 242"><span class="tile-tag">Aula</span><span class="tile-num">242</span></a>
+      <a class="tile" href="aula-243.html" data-num="243" aria-label="Abrir Aula 243"><span class="tile-tag">Aula</span><span class="tile-num">243</span></a>
+      <a class="tile" href="aula-244.html" data-num="244" aria-label="Abrir Aula 244"><span class="tile-tag">Aula</span><span class="tile-num">244</span></a>
+      <a class="tile" href="aula-245.html" data-num="245" aria-label="Abrir Aula 245"><span class="tile-tag">Aula</span><span class="tile-num">245</span></a>
+      <a class="tile" href="aula-246.html" data-num="246" aria-label="Abrir Aula 246"><span class="tile-tag">Aula</span><span class="tile-num">246</span></a>
+      <a class="tile" href="aula-247.html" data-num="247" aria-label="Abrir Aula 247"><span class="tile-tag">Aula</span><span class="tile-num">247</span></a>
+      <a class="tile" href="aula-248.html" data-num="248" aria-label="Abrir Aula 248"><span class="tile-tag">Aula</span><span class="tile-num">248</span></a>
+      <a class="tile" href="aula-249.html" data-num="249" aria-label="Abrir Aula 249"><span class="tile-tag">Aula</span><span class="tile-num">249</span></a>
+      <a class="tile" href="aula-250.html" data-num="250" aria-label="Abrir Aula 250"><span class="tile-tag">Aula</span><span class="tile-num">250</span></a>
+      <div class="divider" aria-hidden="true">Aulas 251&ndash;300</div>
+      <a class="tile" id="bloco-251" href="aula-251.html" data-num="251" aria-label="Abrir Aula 251"><span class="tile-tag">Aula</span><span class="tile-num">251</span></a>
+      <a class="tile" href="aula-252.html" data-num="252" aria-label="Abrir Aula 252"><span class="tile-tag">Aula</span><span class="tile-num">252</span></a>
+      <a class="tile" href="aula-253.html" data-num="253" aria-label="Abrir Aula 253"><span class="tile-tag">Aula</span><span class="tile-num">253</span></a>
+      <a class="tile" href="aula-254.html" data-num="254" aria-label="Abrir Aula 254"><span class="tile-tag">Aula</span><span class="tile-num">254</span></a>
+      <a class="tile" href="aula-255.html" data-num="255" aria-label="Abrir Aula 255"><span class="tile-tag">Aula</span><span class="tile-num">255</span></a>
+      <a class="tile" href="aula-256.html" data-num="256" aria-label="Abrir Aula 256"><span class="tile-tag">Aula</span><span class="tile-num">256</span></a>
+      <a class="tile" href="aula-257.html" data-num="257" aria-label="Abrir Aula 257"><span class="tile-tag">Aula</span><span class="tile-num">257</span></a>
+      <a class="tile" href="aula-258.html" data-num="258" aria-label="Abrir Aula 258"><span class="tile-tag">Aula</span><span class="tile-num">258</span></a>
+      <a class="tile" href="aula-259.html" data-num="259" aria-label="Abrir Aula 259"><span class="tile-tag">Aula</span><span class="tile-num">259</span></a>
+      <a class="tile" href="aula-260.html" data-num="260" aria-label="Abrir Aula 260"><span class="tile-tag">Aula</span><span class="tile-num">260</span></a>
+      <a class="tile" href="aula-261.html" data-num="261" aria-label="Abrir Aula 261"><span class="tile-tag">Aula</span><span class="tile-num">261</span></a>
+      <a class="tile" href="aula-262.html" data-num="262" aria-label="Abrir Aula 262"><span class="tile-tag">Aula</span><span class="tile-num">262</span></a>
+      <a class="tile" href="aula-263.html" data-num="263" aria-label="Abrir Aula 263"><span class="tile-tag">Aula</span><span class="tile-num">263</span></a>
+      <a class="tile" href="aula-264.html" data-num="264" aria-label="Abrir Aula 264"><span class="tile-tag">Aula</span><span class="tile-num">264</span></a>
+      <a class="tile" href="aula-265.html" data-num="265" aria-label="Abrir Aula 265"><span class="tile-tag">Aula</span><span class="tile-num">265</span></a>
+      <a class="tile" href="aula-266.html" data-num="266" aria-label="Abrir Aula 266"><span class="tile-tag">Aula</span><span class="tile-num">266</span></a>
+      <a class="tile" href="aula-267.html" data-num="267" aria-label="Abrir Aula 267"><span class="tile-tag">Aula</span><span class="tile-num">267</span></a>
+      <a class="tile" href="aula-268.html" data-num="268" aria-label="Abrir Aula 268"><span class="tile-tag">Aula</span><span class="tile-num">268</span></a>
+      <a class="tile" href="aula-269.html" data-num="269" aria-label="Abrir Aula 269"><span class="tile-tag">Aula</span><span class="tile-num">269</span></a>
+      <a class="tile" href="aula-270.html" data-num="270" aria-label="Abrir Aula 270"><span class="tile-tag">Aula</span><span class="tile-num">270</span></a>
+      <a class="tile" href="aula-271.html" data-num="271" aria-label="Abrir Aula 271"><span class="tile-tag">Aula</span><span class="tile-num">271</span></a>
+      <a class="tile" href="aula-272.html" data-num="272" aria-label="Abrir Aula 272"><span class="tile-tag">Aula</span><span class="tile-num">272</span></a>
+      <a class="tile" href="aula-273.html" data-num="273" aria-label="Abrir Aula 273"><span class="tile-tag">Aula</span><span class="tile-num">273</span></a>
+      <a class="tile" href="aula-274.html" data-num="274" aria-label="Abrir Aula 274"><span class="tile-tag">Aula</span><span class="tile-num">274</span></a>
+      <a class="tile" href="aula-275.html" data-num="275" aria-label="Abrir Aula 275"><span class="tile-tag">Aula</span><span class="tile-num">275</span></a>
+      <a class="tile" href="aula-276.html" data-num="276" aria-label="Abrir Aula 276"><span class="tile-tag">Aula</span><span class="tile-num">276</span></a>
+      <a class="tile" href="aula-277.html" data-num="277" aria-label="Abrir Aula 277"><span class="tile-tag">Aula</span><span class="tile-num">277</span></a>
+      <a class="tile" href="aula-278.html" data-num="278" aria-label="Abrir Aula 278"><span class="tile-tag">Aula</span><span class="tile-num">278</span></a>
+      <a class="tile" href="aula-279.html" data-num="279" aria-label="Abrir Aula 279"><span class="tile-tag">Aula</span><span class="tile-num">279</span></a>
+      <a class="tile" href="aula-280.html" data-num="280" aria-label="Abrir Aula 280"><span class="tile-tag">Aula</span><span class="tile-num">280</span></a>
+      <a class="tile" href="aula-281.html" data-num="281" aria-label="Abrir Aula 281"><span class="tile-tag">Aula</span><span class="tile-num">281</span></a>
+      <a class="tile" href="aula-282.html" data-num="282" aria-label="Abrir Aula 282"><span class="tile-tag">Aula</span><span class="tile-num">282</span></a>
+      <a class="tile" href="aula-283.html" data-num="283" aria-label="Abrir Aula 283"><span class="tile-tag">Aula</span><span class="tile-num">283</span></a>
+      <a class="tile" href="aula-284.html" data-num="284" aria-label="Abrir Aula 284"><span class="tile-tag">Aula</span><span class="tile-num">284</span></a>
+      <a class="tile" href="aula-285.html" data-num="285" aria-label="Abrir Aula 285"><span class="tile-tag">Aula</span><span class="tile-num">285</span></a>
+      <a class="tile" href="aula-286.html" data-num="286" aria-label="Abrir Aula 286"><span class="tile-tag">Aula</span><span class="tile-num">286</span></a>
+      <a class="tile" href="aula-287.html" data-num="287" aria-label="Abrir Aula 287"><span class="tile-tag">Aula</span><span class="tile-num">287</span></a>
+      <a class="tile" href="aula-288.html" data-num="288" aria-label="Abrir Aula 288"><span class="tile-tag">Aula</span><span class="tile-num">288</span></a>
+      <a class="tile" href="aula-289.html" data-num="289" aria-label="Abrir Aula 289"><span class="tile-tag">Aula</span><span class="tile-num">289</span></a>
+      <a class="tile" href="aula-290.html" data-num="290" aria-label="Abrir Aula 290"><span class="tile-tag">Aula</span><span class="tile-num">290</span></a>
+      <a class="tile" href="aula-291.html" data-num="291" aria-label="Abrir Aula 291"><span class="tile-tag">Aula</span><span class="tile-num">291</span></a>
+      <a class="tile" href="aula-292.html" data-num="292" aria-label="Abrir Aula 292"><span class="tile-tag">Aula</span><span class="tile-num">292</span></a>
+      <a class="tile" href="aula-293.html" data-num="293" aria-label="Abrir Aula 293"><span class="tile-tag">Aula</span><span class="tile-num">293</span></a>
+      <a class="tile" href="aula-294.html" data-num="294" aria-label="Abrir Aula 294"><span class="tile-tag">Aula</span><span class="tile-num">294</span></a>
+      <a class="tile" href="aula-295.html" data-num="295" aria-label="Abrir Aula 295"><span class="tile-tag">Aula</span><span class="tile-num">295</span></a>
+      <a class="tile" href="aula-296.html" data-num="296" aria-label="Abrir Aula 296"><span class="tile-tag">Aula</span><span class="tile-num">296</span></a>
+      <a class="tile" href="aula-297.html" data-num="297" aria-label="Abrir Aula 297"><span class="tile-tag">Aula</span><span class="tile-num">297</span></a>
+      <a class="tile" href="aula-298.html" data-num="298" aria-label="Abrir Aula 298"><span class="tile-tag">Aula</span><span class="tile-num">298</span></a>
+      <a class="tile" href="aula-299.html" data-num="299" aria-label="Abrir Aula 299"><span class="tile-tag">Aula</span><span class="tile-num">299</span></a>
+      <a class="tile" href="aula-300.html" data-num="300" aria-label="Abrir Aula 300"><span class="tile-tag">Aula</span><span class="tile-num">300</span></a>
+      <div class="divider" aria-hidden="true">Aulas 301&ndash;350</div>
+      <a class="tile" id="bloco-301" href="aula-301.html" data-num="301" aria-label="Abrir Aula 301"><span class="tile-tag">Aula</span><span class="tile-num">301</span></a>
+      <a class="tile" href="aula-302.html" data-num="302" aria-label="Abrir Aula 302"><span class="tile-tag">Aula</span><span class="tile-num">302</span></a>
+      <a class="tile" href="aula-303.html" data-num="303" aria-label="Abrir Aula 303"><span class="tile-tag">Aula</span><span class="tile-num">303</span></a>
+      <a class="tile" href="aula-304.html" data-num="304" aria-label="Abrir Aula 304"><span class="tile-tag">Aula</span><span class="tile-num">304</span></a>
+      <a class="tile" href="aula-305.html" data-num="305" aria-label="Abrir Aula 305"><span class="tile-tag">Aula</span><span class="tile-num">305</span></a>
+      <a class="tile" href="aula-306.html" data-num="306" aria-label="Abrir Aula 306"><span class="tile-tag">Aula</span><span class="tile-num">306</span></a>
+      <a class="tile" href="aula-307.html" data-num="307" aria-label="Abrir Aula 307"><span class="tile-tag">Aula</span><span class="tile-num">307</span></a>
+      <a class="tile" href="aula-308.html" data-num="308" aria-label="Abrir Aula 308"><span class="tile-tag">Aula</span><span class="tile-num">308</span></a>
+      <a class="tile" href="aula-309.html" data-num="309" aria-label="Abrir Aula 309"><span class="tile-tag">Aula</span><span class="tile-num">309</span></a>
+      <a class="tile" href="aula-310.html" data-num="310" aria-label="Abrir Aula 310"><span class="tile-tag">Aula</span><span class="tile-num">310</span></a>
+      <a class="tile" href="aula-311.html" data-num="311" aria-label="Abrir Aula 311"><span class="tile-tag">Aula</span><span class="tile-num">311</span></a>
+      <a class="tile" href="aula-312.html" data-num="312" aria-label="Abrir Aula 312"><span class="tile-tag">Aula</span><span class="tile-num">312</span></a>
+      <a class="tile" href="aula-313.html" data-num="313" aria-label="Abrir Aula 313"><span class="tile-tag">Aula</span><span class="tile-num">313</span></a>
+      <a class="tile" href="aula-314.html" data-num="314" aria-label="Abrir Aula 314"><span class="tile-tag">Aula</span><span class="tile-num">314</span></a>
+      <a class="tile" href="aula-315.html" data-num="315" aria-label="Abrir Aula 315"><span class="tile-tag">Aula</span><span class="tile-num">315</span></a>
+      <a class="tile" href="aula-316.html" data-num="316" aria-label="Abrir Aula 316"><span class="tile-tag">Aula</span><span class="tile-num">316</span></a>
+      <a class="tile" href="aula-317.html" data-num="317" aria-label="Abrir Aula 317"><span class="tile-tag">Aula</span><span class="tile-num">317</span></a>
+      <a class="tile" href="aula-318.html" data-num="318" aria-label="Abrir Aula 318"><span class="tile-tag">Aula</span><span class="tile-num">318</span></a>
+      <a class="tile" href="aula-319.html" data-num="319" aria-label="Abrir Aula 319"><span class="tile-tag">Aula</span><span class="tile-num">319</span></a>
+      <a class="tile" href="aula-320.html" data-num="320" aria-label="Abrir Aula 320"><span class="tile-tag">Aula</span><span class="tile-num">320</span></a>
+      <a class="tile" href="aula-321.html" data-num="321" aria-label="Abrir Aula 321"><span class="tile-tag">Aula</span><span class="tile-num">321</span></a>
+      <a class="tile" href="aula-322.html" data-num="322" aria-label="Abrir Aula 322"><span class="tile-tag">Aula</span><span class="tile-num">322</span></a>
+      <a class="tile" href="aula-323.html" data-num="323" aria-label="Abrir Aula 323"><span class="tile-tag">Aula</span><span class="tile-num">323</span></a>
+      <a class="tile" href="aula-324.html" data-num="324" aria-label="Abrir Aula 324"><span class="tile-tag">Aula</span><span class="tile-num">324</span></a>
+      <a class="tile" href="aula-325.html" data-num="325" aria-label="Abrir Aula 325"><span class="tile-tag">Aula</span><span class="tile-num">325</span></a>
+      <a class="tile" href="aula-326.html" data-num="326" aria-label="Abrir Aula 326"><span class="tile-tag">Aula</span><span class="tile-num">326</span></a>
+      <a class="tile" href="aula-327.html" data-num="327" aria-label="Abrir Aula 327"><span class="tile-tag">Aula</span><span class="tile-num">327</span></a>
+      <a class="tile" href="aula-328.html" data-num="328" aria-label="Abrir Aula 328"><span class="tile-tag">Aula</span><span class="tile-num">328</span></a>
+      <a class="tile" href="aula-329.html" data-num="329" aria-label="Abrir Aula 329"><span class="tile-tag">Aula</span><span class="tile-num">329</span></a>
+      <a class="tile" href="aula-330.html" data-num="330" aria-label="Abrir Aula 330"><span class="tile-tag">Aula</span><span class="tile-num">330</span></a>
+      <a class="tile" href="aula-331.html" data-num="331" aria-label="Abrir Aula 331"><span class="tile-tag">Aula</span><span class="tile-num">331</span></a>
+      <a class="tile" href="aula-332.html" data-num="332" aria-label="Abrir Aula 332"><span class="tile-tag">Aula</span><span class="tile-num">332</span></a>
+      <a class="tile" href="aula-333.html" data-num="333" aria-label="Abrir Aula 333"><span class="tile-tag">Aula</span><span class="tile-num">333</span></a>
+      <a class="tile" href="aula-334.html" data-num="334" aria-label="Abrir Aula 334"><span class="tile-tag">Aula</span><span class="tile-num">334</span></a>
+      <a class="tile" href="aula-335.html" data-num="335" aria-label="Abrir Aula 335"><span class="tile-tag">Aula</span><span class="tile-num">335</span></a>
+      <a class="tile" href="aula-336.html" data-num="336" aria-label="Abrir Aula 336"><span class="tile-tag">Aula</span><span class="tile-num">336</span></a>
+      <a class="tile" href="aula-337.html" data-num="337" aria-label="Abrir Aula 337"><span class="tile-tag">Aula</span><span class="tile-num">337</span></a>
+      <a class="tile" href="aula-338.html" data-num="338" aria-label="Abrir Aula 338"><span class="tile-tag">Aula</span><span class="tile-num">338</span></a>
+      <a class="tile" href="aula-339.html" data-num="339" aria-label="Abrir Aula 339"><span class="tile-tag">Aula</span><span class="tile-num">339</span></a>
+      <a class="tile" href="aula-340.html" data-num="340" aria-label="Abrir Aula 340"><span class="tile-tag">Aula</span><span class="tile-num">340</span></a>
+      <a class="tile" href="aula-341.html" data-num="341" aria-label="Abrir Aula 341"><span class="tile-tag">Aula</span><span class="tile-num">341</span></a>
+      <a class="tile" href="aula-342.html" data-num="342" aria-label="Abrir Aula 342"><span class="tile-tag">Aula</span><span class="tile-num">342</span></a>
+      <a class="tile" href="aula-343.html" data-num="343" aria-label="Abrir Aula 343"><span class="tile-tag">Aula</span><span class="tile-num">343</span></a>
+      <a class="tile" href="aula-344.html" data-num="344" aria-label="Abrir Aula 344"><span class="tile-tag">Aula</span><span class="tile-num">344</span></a>
+      <a class="tile" href="aula-345.html" data-num="345" aria-label="Abrir Aula 345"><span class="tile-tag">Aula</span><span class="tile-num">345</span></a>
+      <a class="tile" href="aula-346.html" data-num="346" aria-label="Abrir Aula 346"><span class="tile-tag">Aula</span><span class="tile-num">346</span></a>
+      <a class="tile" href="aula-347.html" data-num="347" aria-label="Abrir Aula 347"><span class="tile-tag">Aula</span><span class="tile-num">347</span></a>
+      <a class="tile" href="aula-348.html" data-num="348" aria-label="Abrir Aula 348"><span class="tile-tag">Aula</span><span class="tile-num">348</span></a>
+      <a class="tile" href="aula-349.html" data-num="349" aria-label="Abrir Aula 349"><span class="tile-tag">Aula</span><span class="tile-num">349</span></a>
+      <a class="tile" href="aula-350.html" data-num="350" aria-label="Abrir Aula 350"><span class="tile-tag">Aula</span><span class="tile-num">350</span></a>
+      <div class="divider" aria-hidden="true">Aulas 351&ndash;365</div>
+      <a class="tile" id="bloco-351" href="aula-351.html" data-num="351" aria-label="Abrir Aula 351"><span class="tile-tag">Aula</span><span class="tile-num">351</span></a>
+      <a class="tile" href="aula-352.html" data-num="352" aria-label="Abrir Aula 352"><span class="tile-tag">Aula</span><span class="tile-num">352</span></a>
+      <a class="tile" href="aula-353.html" data-num="353" aria-label="Abrir Aula 353"><span class="tile-tag">Aula</span><span class="tile-num">353</span></a>
+      <a class="tile" href="aula-354.html" data-num="354" aria-label="Abrir Aula 354"><span class="tile-tag">Aula</span><span class="tile-num">354</span></a>
+      <a class="tile" href="aula-355.html" data-num="355" aria-label="Abrir Aula 355"><span class="tile-tag">Aula</span><span class="tile-num">355</span></a>
+      <a class="tile" href="aula-356.html" data-num="356" aria-label="Abrir Aula 356"><span class="tile-tag">Aula</span><span class="tile-num">356</span></a>
+      <a class="tile" href="aula-357.html" data-num="357" aria-label="Abrir Aula 357"><span class="tile-tag">Aula</span><span class="tile-num">357</span></a>
+      <a class="tile" href="aula-358.html" data-num="358" aria-label="Abrir Aula 358"><span class="tile-tag">Aula</span><span class="tile-num">358</span></a>
+      <a class="tile" href="aula-359.html" data-num="359" aria-label="Abrir Aula 359"><span class="tile-tag">Aula</span><span class="tile-num">359</span></a>
+      <a class="tile" href="aula-360.html" data-num="360" aria-label="Abrir Aula 360"><span class="tile-tag">Aula</span><span class="tile-num">360</span></a>
+      <a class="tile" href="aula-361.html" data-num="361" aria-label="Abrir Aula 361"><span class="tile-tag">Aula</span><span class="tile-num">361</span></a>
+      <a class="tile" href="aula-362.html" data-num="362" aria-label="Abrir Aula 362"><span class="tile-tag">Aula</span><span class="tile-num">362</span></a>
+      <a class="tile" href="aula-363.html" data-num="363" aria-label="Abrir Aula 363"><span class="tile-tag">Aula</span><span class="tile-num">363</span></a>
+      <a class="tile" href="aula-364.html" data-num="364" aria-label="Abrir Aula 364"><span class="tile-tag">Aula</span><span class="tile-num">364</span></a>
+      <a class="tile" href="aula-365.html" data-num="365" aria-label="Abrir Aula 365"><span class="tile-tag">Aula</span><span class="tile-num">365</span></a>
+    </div>
+    <div class="empty" id="vazio">Nenhuma aula encontrada com esse n&uacute;mero.</div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    Não desista dos seus sonhos
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var input=document.getElementById('busca');
+    var tiles=[].slice.call(document.querySelectorAll('.tile'));
+    var dividers=[].slice.call(document.querySelectorAll('.divider'));
+    var vazio=document.getElementById('vazio');
+    var contador=document.getElementById('contador');
+    input.addEventListener('input',function(){
+      var q=this.value.replace(/\D/g,'');
+      var visiveis=0;
+      tiles.forEach(function(t){
+        var match=q==='' || String(t.dataset.num).indexOf(q)===0;
+        t.style.display=match?'':'none';
+        if(match)visiveis++;
+      });
+      dividers.forEach(function(d){d.style.display=q===''?'':'none';});
+      vazio.classList.toggle('show',visiveis===0);
+      contador.textContent=q===''?'365 aulas':(visiveis+' encontrada'+(visiveis===1?'':'s'));
+    });
+    input.addEventListener('keydown',function(e){
+      if(e.key==='Enter'){
+        var vis=tiles.filter(function(t){return t.style.display!=='none';});
+        if(vis.length){window.location.href=vis[0].getAttribute('href');}
+      }
+    });
+  })();
+</script>
+</body>
+</html>
