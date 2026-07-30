@@ -1,0 +1,318 @@
+<html lang="pt-br"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 11 — Anotações da Aula</title>
+  <link href="https://api.fontshare.com/v2/css?f[]=switzer@100,200,300,400,500,600,700,800,900&amp;display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cyan: #00FFFF;
+      --black: #0a0a0a;
+      --dark: #111111;
+      --dark-card: #131313;
+      --gray: #2a2a2a;
+      --text: #e8e8e8;
+      --text-dim: #aaa;
+      --text-soft: #777;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      background: var(--black);
+      color: var(--text);
+      font-family: 'Switzer', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+    .frame { width: 100%; position: relative; overflow-x: hidden; }
+    .frame::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      pointer-events: none;
+      opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px;
+    }
+
+    .hero {
+      width: 100%; min-height: 100svh;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      position: relative; padding: 3rem 1.5rem;
+    }
+    .hero-glow {
+      position: absolute; width: 65vw; height: 65vw; max-width: 500px; max-height: 500px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,255,255,0.12) 0%, transparent 70%);
+      top: 50%; left: 50%; transform: translate(-50%,-50%);
+      filter: blur(60px); animation: pulse 6s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%,100%{opacity:.4;transform:translate(-50%,-50%) scale(1)}
+      50%{opacity:.7;transform:translate(-50%,-50%) scale(1.15)}
+    }
+    .hero-tag {
+      font-family: 'Switzer', sans-serif; font-size: clamp(0.6rem, 2vw, 0.9rem);
+      letter-spacing: 0.25em; text-transform: uppercase; color: var(--cyan);
+      font-weight: 600; border: 1px solid rgba(0,255,255,0.3); padding: 0.6em 1.5em;
+      margin-bottom: clamp(1.5rem, 4vw, 3rem); z-index: 2; animation: fadeIn .6s ease both;
+    }
+    .hero h1 {
+      font-size: clamp(2.2rem, 8vw, 5.5rem); font-weight: 900; text-align: center;
+      line-height: 1.15; z-index: 2; animation: fadeIn .6s .1s ease both;
+    }
+    .hero h1 .c { color: var(--cyan); }
+    .hero h1 .o { -webkit-text-stroke: clamp(1px, 0.3vw, 2.5px) var(--cyan); color: transparent; }
+    .hero-sub {
+      font-family: 'Switzer', sans-serif; font-size: clamp(0.75rem, 2.5vw, 1.1rem);
+      color: var(--text-dim); margin-top: clamp(1.2rem, 3vw, 2.5rem); text-align: center;
+      z-index: 2; line-height: 1.8; animation: fadeIn .6s .2s ease both;
+    }
+    .hero-pt {
+      font-family: 'Switzer', sans-serif; font-size: clamp(0.65rem, 2.2vw, 0.95rem);
+      color: var(--text-soft); margin-top: 0.5em; text-align: center;
+      z-index: 2; animation: fadeIn .6s .3s ease both;
+    }
+    .scroll-hint {
+      position: absolute; bottom: clamp(1.5rem, 4vw, 3.5rem); left: 50%; transform: translateX(-50%);
+      text-align: center; animation: fadeIn .6s .5s ease both;
+    }
+    .scroll-hint span {
+      font-family: 'Switzer', sans-serif; font-size: clamp(0.55rem, 1.8vw, 0.75rem);
+      letter-spacing: 0.25em; color: var(--text-soft); font-weight: 600; display: block;
+      margin-bottom: 0.6rem;
+    }
+    .scroll-hint i {
+      display: block; width: 1px; height: clamp(2rem, 5vw, 3.5rem);
+      background: linear-gradient(var(--cyan), transparent); margin: 0 auto;
+      animation: sp 2s ease-in-out infinite;
+    }
+    @keyframes sp { 0%,100%{opacity:.3} 50%{opacity:1} }
+    @keyframes fadeIn { from{opacity:0;transform:translateY(-12px)} to{opacity:1;transform:translateY(0)} }
+
+    .wrap { max-width: 900px; margin: 0 auto; padding: 0 clamp(1rem, 4vw, 2.5rem) clamp(2rem, 6vw, 5rem); }
+    section { margin-bottom: clamp(3rem, 8vw, 6rem); }
+
+    .num {
+      font-family: 'Switzer', sans-serif; font-size: clamp(0.7rem, 2vw, 0.9rem);
+      letter-spacing: 0.2em; color: var(--cyan); text-transform: uppercase;
+      font-weight: 700; margin-bottom: clamp(0.5rem, 1.5vw, 1rem);
+    }
+    .stitle { font-size: clamp(1.8rem, 6vw, 3.5rem); font-weight: 900; line-height: 1.2; margin-bottom: 0.3em; }
+    .stitle .c { color: var(--cyan); }
+    .spt { font-size: clamp(0.95rem, 3vw, 1.3rem); color: var(--text-soft); font-style: italic; margin-bottom: 0.4em; }
+    .sdesc {
+      font-family: 'Switzer', sans-serif; font-size: clamp(0.8rem, 2.5vw, 1.1rem);
+      color: var(--text-dim); margin-bottom: clamp(1.2rem, 4vw, 2.5rem); line-height: 1.7;
+    }
+    .sdesc .p { color: var(--text-soft); }
+
+    .ex { margin-bottom: clamp(1rem, 3vw, 2rem); }
+    .en { font-size: clamp(1.1rem, 3.5vw, 1.6rem); line-height: 1.55; color: var(--text); }
+    .en b { color: var(--cyan); font-weight: 700; }
+    .pt { font-size: clamp(0.9rem, 2.8vw, 1.25rem); color: var(--text-soft); font-style: italic; line-height: 1.5; margin-top: 0.2em; }
+
+    .cg { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(0.5rem, 2vw, 1rem); margin-bottom: clamp(1rem, 3vw, 2rem); }
+    .ci {
+      background: var(--dark); border: 1px solid var(--gray); border-radius: clamp(0.5rem, 1.5vw, 0.8rem);
+      padding: clamp(0.8rem, 2.5vw, 1.5rem) clamp(0.4rem, 1.5vw, 0.8rem); text-align: center;
+    }
+    .ci.hl { border-color: var(--cyan); }
+    .ci.full { grid-column: 1 / -1; }
+    .ci .pro { font-family: 'Switzer', sans-serif; font-size: clamp(0.6rem, 2vw, 0.85rem); letter-spacing: 0.12em; font-weight: 700; color: var(--text-dim); }
+    .ci .ptr { font-size: clamp(0.6rem, 2vw, 0.85rem); color: var(--text-soft); font-style: italic; margin: 0.2em 0 0.4em; }
+    .ci .vb { font-size: clamp(1.5rem, 5.5vw, 2.8rem); font-weight: 900; color: var(--cyan); }
+    .ci .mn { font-size: clamp(0.6rem, 2vw, 0.85rem); color: var(--text-soft); font-style: italic; margin-top: 0.3em; }
+
+    .rule {
+      background: linear-gradient(135deg, rgba(0,255,255,0.04), transparent);
+      border-left: clamp(3px, 0.6vw, 5px) solid var(--cyan);
+      padding: clamp(1rem, 3.5vw, 2rem); border-radius: 0 clamp(0.4rem, 1.5vw, 0.8rem) clamp(0.4rem, 1.5vw, 0.8rem) 0;
+      margin: clamp(1rem, 3vw, 2rem) 0 clamp(0.5rem, 1vw, 0.8rem);
+      font-family: 'Switzer', sans-serif; font-size: clamp(0.8rem, 2.6vw, 1.15rem); line-height: 1.85;
+    }
+    .rule .rl { font-size: clamp(0.6rem, 1.8vw, 0.8rem); letter-spacing: 0.2em; color: var(--cyan); font-weight: 800; display: block; margin-bottom: clamp(0.6rem, 2vw, 1.2rem); }
+    .rule b { color: var(--cyan); font-weight: 800; }
+    .rule .ok { color: #55ff55; }
+    .rule .no { color: #ff6b6b; text-decoration: line-through; opacity: .5; }
+    .rule .rn {
+      margin-top: clamp(0.8rem, 2vw, 1.2rem); padding-top: clamp(0.8rem, 2vw, 1.2rem);
+      border-top: 1px solid rgba(0,255,255,0.1); color: var(--text-soft);
+      font-size: clamp(0.7rem, 2.2vw, 1rem); font-style: italic;
+    }
+
+    .card {
+      background: var(--dark-card); border: 1px solid var(--gray); border-radius: clamp(0.6rem, 2vw, 1rem);
+      padding: clamp(1rem, 3.5vw, 2rem); margin-bottom: clamp(1rem, 2.5vw, 1.5rem); position: relative; overflow: hidden;
+    }
+    .card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,transparent,var(--cyan),transparent); opacity:.4; }
+    .card h3 { font-size: clamp(1.1rem, 3.5vw, 1.6rem); font-weight: 800; color: #fff; margin-bottom: clamp(0.6rem, 2vw, 1rem); }
+    .card h3 span { margin-right: 0.5em; }
+    .card .sub { font-size: clamp(1rem, 3vw, 1.4rem); color: var(--cyan); font-weight: 700; margin-bottom: 0.5em; }
+    .card .note { font-size: clamp(0.8rem, 2.5vw, 1.1rem); color: var(--text-soft); font-style: italic; margin-bottom: clamp(0.8rem, 2.5vw, 1.5rem); }
+
+    .qa {
+      background: var(--dark-card); border: 1px solid var(--gray); border-radius: clamp(0.6rem, 2vw, 1rem);
+      padding: clamp(1rem, 3.5vw, 2rem); margin-bottom: clamp(1rem, 2.5vw, 1.5rem);
+    }
+    .qa .q { font-size: clamp(1.1rem, 3.5vw, 1.6rem); font-weight: 700; color: var(--text); margin-bottom: 0.2em; }
+    .qa .q b { color: var(--cyan); font-weight: 800; }
+    .qa .qpt { font-size: clamp(0.85rem, 2.6vw, 1.15rem); color: var(--text-soft); font-style: italic; margin-bottom: clamp(0.8rem, 2.5vw, 1.5rem); }
+    .qa .a { font-size: clamp(1rem, 3vw, 1.35rem); line-height: 2; }
+    .qa .ok { color: #55ff55; }
+    .qa .no { color: #ff6b6b; }
+    .qa .apt { color: var(--text-soft); font-size: clamp(0.8rem, 2.5vw, 1.1rem); font-style: italic; }
+
+    .vr {
+      display: flex; align-items: center; gap: clamp(0.6rem, 2vw, 1.2rem);
+      padding: clamp(0.7rem, 2.5vw, 1.2rem) 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .vr:last-child { border: none; }
+    .vr .em { font-size: clamp(1.5rem, 5vw, 2.5rem); width: clamp(2.2rem, 7vw, 3.5rem); text-align: center; flex-shrink: 0; }
+    .vr .ven { font-weight: 800; font-size: clamp(1rem, 3.5vw, 1.5rem); color: #fff; min-width: clamp(5rem, 18vw, 10rem); }
+    .vr .vpt { font-family: 'Switzer', sans-serif; font-size: clamp(0.75rem, 2.5vw, 1.05rem); color: var(--text-dim); }
+    .vdiv { height: 1px; background: var(--gray); margin: clamp(0.5rem, 1.5vw, 1rem) 0; }
+
+    .cheat { border: 1px solid var(--gray); border-radius: clamp(0.6rem, 2vw, 1rem); overflow: hidden; }
+    .crow { padding: clamp(1rem, 3.5vw, 2rem); border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .crow:last-child { border: none; }
+    .crow .cl { font-family: 'Switzer', sans-serif; font-size: clamp(0.8rem, 2.5vw, 1.1rem); font-weight: 800; color: var(--cyan); margin-bottom: clamp(0.6rem, 2vw, 1.2rem); }
+    .crow .cols { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(0.8rem, 2.5vw, 1.5rem); }
+    .crow .col h4 { font-size: clamp(0.55rem, 1.8vw, 0.8rem); font-family: 'Switzer', sans-serif; letter-spacing: 0.1em; color: var(--text-soft); margin-bottom: 0.4em; }
+    .crow .col .val { font-size: clamp(1rem, 3.5vw, 1.5rem); font-weight: 700; color: var(--text); }
+    .crow .col .val b { color: var(--cyan); font-weight: 800; }
+    .crow .col .vpt { font-size: clamp(0.7rem, 2.2vw, 0.95rem); color: var(--text-soft); font-style: italic; margin-top: 0.3em; }
+
+    footer { width: 100%; text-align: center; border-top: 1px solid var(--gray); }
+    .footer-inner { max-width: 900px; margin: 0 auto; padding: clamp(2rem, 6vw, 4rem) clamp(1rem, 4vw, 2.5rem); }
+    footer p { font-family: 'Switzer', sans-serif; font-size: clamp(0.7rem, 2.2vw, 0.95rem); color: var(--text-dim); letter-spacing: 0.15em; line-height: 2.2; }
+    footer .fp { color: var(--text-soft); }
+
+    @media (max-width: 420px) {
+      .cg { gap: 0.4rem; }
+      .ci .vb { font-size: clamp(1.2rem, 6vw, 1.8rem); }
+      .crow .cols { grid-template-columns: 1fr; gap: 1rem; }
+      .vr .ven { min-width: auto; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="frame">
+  <!-- HERO: titulo da aula -->
+  <div class="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-tag">Lesson 11 — Anotações</div>
+    <h1><span class="o">Empty Days</span><br><span class="c">Helping</span><br>&amp; Moods</h1>
+    <p class="hero-sub">Empty days, helping others and expressions</p>
+    <p class="hero-pt">Dias vazios, ajudando os outros e expressões úteis</p>
+    <div class="scroll-hint"><span>ROLAR</span><i></i></div>
+  </div>
+
+  <div class="wrap">
+    <!-- Secao 01: Empty Day -->
+    <section>
+      <div class="num">01 — VOCABULARY</div>
+      <h2 class="stitle">Empty <span class="c">Day</span></h2>
+      <p class="spt">A day with nothing to do</p>
+      <p class="sdesc">Usamos essa expressão para descrever um dia em que não temos muitas obrigações ou trabalho.<br><span class="p">Geralmente é um dia para relaxar.</span></p>
+      <div class="cg">
+        <div class="ci hl"><div class="pro">CONCEPT</div><div class="ptr">dia vazio</div><div class="vb">Empty</div><div class="mn">vazio / livre</div></div>
+        <div class="ci"><div class="pro">OPPOSITE</div><div class="ptr">ocupado</div><div class="vb">Busy</div><div class="mn">cheio de coisas</div></div>
+        <div class="ci full"><div class="pro">PHRASE</div><div class="ptr">exemplo</div><div class="vb">It's an empty day</div><div class="mn">É um dia vazio / tranquilo</div></div>
+      </div>
+    </section>
+
+    <!-- Secao 02: Helping -->
+    <section>
+      <div class="num">02 — ACTIONS</div>
+      <h2 class="stitle">To <span class="c">Help</span></h2>
+      <p class="sdesc">O professor <b>Matheus</b> explicou como usar o verbo "ajudar" no presente contínuo (ações acontecendo agora).</p>
+      <div class="ex"><div class="en">I am <b>helping</b> you learn English.</div><div class="pt">Eu estou ajudando você a aprender inglês.</div></div>
+      <div class="ex"><div class="en">Zach is <b>helping</b> Molly.</div><div class="pt">O Zach está ajudando a Molly.</div></div>
+      <div class="ex"><div class="en">Diana is <b>helping</b> Tom.</div><div class="pt">A Diana está ajudando o Tom.</div></div>
+      <div class="ex"><div class="en">Tisha is <b>helping</b> her brother.</div><div class="pt">A Tisha está ajudando o irmão dela.</div></div>
+    </section>
+
+    <!-- Secao 03: Let me know -->
+    <section>
+      <div class="num">03 — EXPRESSION</div>
+      <h2 class="stitle">Let me <span class="c">know</span></h2>
+      <div class="card">
+        <h3><span>💬</span> Let me know</h3>
+        <div class="sub">Me avise / Me conte / Me deixe saber</div>
+        <div class="note">Pronúncia: [lét mi nôu]</div>
+        <p>Usamos essa expressão para pedir que alguém nos informe sobre algo no futuro, especialmente após darmos um contexto ou oferecermos ajuda.</p>
+      </div>
+      <div class="rule">
+        <span class="rl">INTERNET SLANG</span>
+        Na internet e mensagens de texto, você pode usar a abreviação: <b>LMK</b><br>
+        <span class="ok">Ex: "LMK if you need help!"</span>
+        <div class="rn">Significa exatamente "Let Me Know".</div>
+      </div>
+    </section>
+
+    <!-- Secao 04: Moods -->
+    <section>
+      <div class="num">04 — MOODS</div>
+      <h2 class="stitle">Doing <span class="c">Great</span></h2>
+      <p class="sdesc">Novas formas de responder à pergunta "How are you?" (Como você está?).</p>
+      <div class="vr"><div class="em">🤩</div><div class="ven">Doing great</div><div class="vpt">Indica que você está muito bem / ótimo.</div></div>
+      <div class="vdiv"></div>
+      <div class="vr"><div class="em">🙂</div><div class="ven">Doing well</div><div class="vpt">Indica que você está bem.</div></div>
+      <div class="vdiv"></div>
+      <div class="vr"><div class="em">🤒</div><div class="ven">Sick</div><div class="vpt">Doente.</div></div>
+    </section>
+
+    <!-- Secao 05: Too -->
+    <section>
+      <div class="num">05 — GRAMMAR</div>
+      <h2 class="stitle">The use of <span class="c">Too</span></h2>
+      <div class="rule">
+        <span class="rl">REGRA DO TAMBÉM</span>
+        Para dizer "também" em frases afirmativas, colocamos o <b>TOO</b> ao final da frase.<br><br>
+        <span class="ok">✓ I'm doing great <b>too</b>.</span> (Eu estou bem também)<br>
+        <span class="ok">✓ I live in Brazil <b>too</b>.</span> (Eu moro no Brasil também)
+        <div class="rn">Sempre posicionado no final da sentença.</div>
+      </div>
+    </section>
+
+    <!-- Secao 06: Prática -->
+    <section>
+      <div class="num">06 — PRATICA</div>
+      <h2 class="stitle">Reações</h2>
+      <div class="qa">
+        <div class="q"><b>That's nice!</b></div>
+        <div class="qpt">Isso é bom! / Que legal!</div>
+        <div class="a"><span class="ok">✓ "You are learning English." -&gt; "That's nice!"</span></div>
+        <div class="apt">Usamos "That's nice" para reagir positivamente a uma notícia ou situação.</div>
+      </div>
+    </section>
+
+    <!-- Cheat sheet -->
+    <section>
+      <div class="num">07 — CHEAT SHEET</div>
+      <h2 class="stitle">Quick <span class="c">Review</span></h2>
+      <div class="cheat">
+        <div class="crow">
+          <div class="cl">LET ME KNOW...</div>
+          <div class="cols">
+            <div class="col"><h4>ENGLISH</h4><div class="val">...if I can <b>help</b> you</div><div class="vpt">se eu posso te ajudar</div></div>
+            <div class="col"><h4>ENGLISH</h4><div class="val">...if you have <b>questions</b></div><div class="vpt">se você tiver perguntas</div></div>
+          </div>
+        </div>
+        <div class="crow">
+          <div class="cl">MOODS</div>
+          <div class="cols">
+            <div class="col"><h4>PHRASE</h4><div class="val">I'm <b>doing well</b></div><div class="vpt">Eu estou bem</div></div>
+            <div class="col"><h4>PHRASE</h4><div class="val">I'm <b>doing great</b></div><div class="vpt">Eu estou ótimo</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <footer><div class="footer-inner"><p>ALOUD — ANOTAÇÕES DA AULA COM MATHUES<br><span class="fp">Estude. Pratique. Fale.</span></p></div></footer>
+</div>
+
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a2365a5d9c3af258',t:'MTc4NTQzNTM3MQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+</body></html>

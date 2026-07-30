@@ -1,0 +1,378 @@
+<html lang="pt-br"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 15 — Anotações da Aula</title>
+  <link href="https://api.fontshare.com/v2/css?f[]=switzer@100,200,300,400,500,600,700,800,900&amp;display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cyan: #00FFFF;
+      --black: #0a0a0a;
+      --dark: #111111;
+      --dark-card: #131313;
+      --gray: #2a2a2a;
+      --text: #e8e8e8;
+      --text-dim: #aaa;
+      --text-soft: #777;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      background: var(--black);
+      color: var(--text);
+      font-family: 'Switzer', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+    .frame { width: 100%; position: relative; overflow-x: hidden; }
+    .frame::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      pointer-events: none;
+      opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px;
+    }
+
+    .hero {
+      width: 100%; min-height: 100svh;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      position: relative; padding: 3rem 1.5rem;
+    }
+    .hero-glow {
+      position: absolute; width: 65vw; height: 65vw; max-width: 500px; max-height: 500px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,255,255,0.12) 0%, transparent 70%);
+      top: 50%; left: 50%; transform: translate(-50%,-50%);
+      filter: blur(60px); animation: pulse 6s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%,100%{opacity:.4;transform:translate(-50%,-50%) scale(1)}
+      50%{opacity:.7;transform:translate(-50%,-50%) scale(1.15)}
+    }
+    .hero-tag {
+      font-family: 'Switzer', sans-serif; font-size: clamp(0.6rem, 2vw, 0.9rem);
+      letter-spacing: 0.25em; text-transform: uppercase; color: var(--cyan);
+      font-weight: 600; border: 1px solid rgba(0,255,255,0.3); padding: 0.6em 1.5em;
+      margin-bottom: clamp(1.5rem, 4vw, 3rem); z-index: 2; animation: fadeIn .6s ease both;
+    }
+    .hero h1 {
+      font-size: clamp(2.2rem, 8vw, 5.5rem); font-weight: 900; text-align: center;
+      line-height: 1.15; z-index: 2; animation: fadeIn .6s .1s ease both;
+    }
+    .hero h1 .c { color: var(--cyan); }
+    .hero h1 .o { -webkit-text-stroke: clamp(1px, 0.3vw, 2.5px) var(--cyan); color: transparent; }
+    .hero-sub {
+      font-family: 'Switzer', sans-serif; font-size: clamp(0.75rem, 2.5vw, 1.1rem);
+      color: var(--text-dim); margin-top: clamp(1.2rem, 3vw, 2.5rem); text-align: center;
+      z-index: 2; line-height: 1.8; animation: fadeIn .6s .2s ease both;
+    }
+    .hero-pt {
+      font-family: 'Switzer', sans-serif; font-size: clamp(0.65rem, 2.2vw, 0.95rem);
+      color: var(--text-soft); margin-top: 0.5em; text-align: center;
+      z-index: 2; animation: fadeIn .6s .3s ease both;
+    }
+    .scroll-hint {
+      position: absolute; bottom: clamp(1.5rem, 4vw, 3.5rem); left: 50%; transform: translateX(-50%);
+      text-align: center; animation: fadeIn .6s .5s ease both;
+    }
+    .scroll-hint span {
+      font-family: 'Switzer', sans-serif; font-size: clamp(0.55rem, 1.8vw, 0.75rem);
+      letter-spacing: 0.25em; color: var(--text-soft); font-weight: 600; display: block;
+      margin-bottom: 0.6rem;
+    }
+    .scroll-hint i {
+      display: block; width: 1px; height: clamp(2rem, 5vw, 3.5rem);
+      background: linear-gradient(var(--cyan), transparent); margin: 0 auto;
+      animation: sp 2s ease-in-out infinite;
+    }
+    @keyframes sp { 0%,100%{opacity:.3} 50%{opacity:1} }
+    @keyframes fadeIn { from{opacity:0;transform:translateY(-12px)} to{opacity:1;transform:translateY(0)} }
+
+    .wrap { max-width: 900px; margin: 0 auto; padding: 0 clamp(1rem, 4vw, 2.5rem) clamp(2rem, 6vw, 5rem); }
+    section { margin-bottom: clamp(3rem, 8vw, 6rem); }
+
+    .num {
+      font-family: 'Switzer', sans-serif; font-size: clamp(0.7rem, 2vw, 0.9rem);
+      letter-spacing: 0.2em; color: var(--cyan); text-transform: uppercase;
+      font-weight: 700; margin-bottom: clamp(0.5rem, 1.5vw, 1rem);
+    }
+    .stitle { font-size: clamp(1.8rem, 6vw, 3.5rem); font-weight: 900; line-height: 1.2; margin-bottom: 0.3em; }
+    .stitle .c { color: var(--cyan); }
+    .spt { font-size: clamp(0.95rem, 3vw, 1.3rem); color: var(--text-soft); font-style: italic; margin-bottom: 0.4em; }
+    .sdesc {
+      font-family: 'Switzer', sans-serif; font-size: clamp(0.8rem, 2.5vw, 1.1rem);
+      color: var(--text-dim); margin-bottom: clamp(1.2rem, 4vw, 2.5rem); line-height: 1.7;
+    }
+    .sdesc .p { color: var(--text-soft); }
+
+    .ex { margin-bottom: clamp(1rem, 3vw, 2rem); }
+    .en { font-size: clamp(1.1rem, 3.5vw, 1.6rem); line-height: 1.55; color: var(--text); }
+    .en b { color: var(--cyan); font-weight: 700; }
+    .pt { font-size: clamp(0.9rem, 2.8vw, 1.25rem); color: var(--text-soft); font-style: italic; line-height: 1.5; margin-top: 0.2em; }
+
+    .cg { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(0.5rem, 2vw, 1rem); margin-bottom: clamp(1rem, 3vw, 2rem); }
+    .ci {
+      background: var(--dark); border: 1px solid var(--gray); border-radius: clamp(0.5rem, 1.5vw, 0.8rem);
+      padding: clamp(0.8rem, 2.5vw, 1.5rem) clamp(0.4rem, 1.5vw, 0.8rem); text-align: center;
+    }
+    .ci.hl { border-color: var(--cyan); }
+    .ci.full { grid-column: 1 / -1; }
+    .ci .pro { font-family: 'Switzer', sans-serif; font-size: clamp(0.6rem, 2vw, 0.85rem); letter-spacing: 0.12em; font-weight: 700; color: var(--text-dim); }
+    .ci .ptr { font-size: clamp(0.6rem, 2vw, 0.85rem); color: var(--text-soft); font-style: italic; margin: 0.2em 0 0.4em; }
+    .ci .vb { font-size: clamp(1.5rem, 5.5vw, 2.8rem); font-weight: 900; color: var(--cyan); }
+    .ci .mn { font-size: clamp(0.6rem, 2vw, 0.85rem); color: var(--text-soft); font-style: italic; margin-top: 0.3em; }
+
+    .rule {
+      background: linear-gradient(135deg, rgba(0,255,255,0.04), transparent);
+      border-left: clamp(3px, 0.6vw, 5px) solid var(--cyan);
+      padding: clamp(1rem, 3.5vw, 2rem); border-radius: 0 clamp(0.4rem, 1.5vw, 0.8rem) clamp(0.4rem, 1.5vw, 0.8rem) 0;
+      margin: clamp(1rem, 3vw, 2rem) 0 clamp(0.5rem, 1vw, 0.8rem);
+      font-family: 'Switzer', sans-serif; font-size: clamp(0.8rem, 2.6vw, 1.15rem); line-height: 1.85;
+    }
+    .rule .rl { font-size: clamp(0.6rem, 1.8vw, 0.8rem); letter-spacing: 0.2em; color: var(--cyan); font-weight: 800; display: block; margin-bottom: clamp(0.6rem, 2vw, 1.2rem); }
+    .rule b { color: var(--cyan); font-weight: 800; }
+    .rule .ok { color: #55ff55; }
+    .rule .no { color: #ff6b6b; text-decoration: line-through; opacity: .5; }
+    .rule .rn {
+      margin-top: clamp(0.8rem, 2vw, 1.2rem); padding-top: clamp(0.8rem, 2vw, 1.2rem);
+      border-top: 1px solid rgba(0,255,255,0.1); color: var(--text-soft);
+      font-size: clamp(0.7rem, 2.2vw, 1rem); font-style: italic;
+    }
+
+    .card {
+      background: var(--dark-card); border: 1px solid var(--gray); border-radius: clamp(0.6rem, 2vw, 1rem);
+      padding: clamp(1rem, 3.5vw, 2rem); margin-bottom: clamp(1rem, 2.5vw, 1.5rem); position: relative; overflow: hidden;
+    }
+    .card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,transparent,var(--cyan),transparent); opacity:.4; }
+    .card h3 { font-size: clamp(1.1rem, 3.5vw, 1.6rem); font-weight: 800; color: #fff; margin-bottom: clamp(0.6rem, 2vw, 1rem); }
+    .card h3 span { margin-right: 0.5em; }
+    .card .sub { font-size: clamp(1rem, 3vw, 1.4rem); color: var(--cyan); font-weight: 700; margin-bottom: 0.5em; }
+    .card .note { font-size: clamp(0.8rem, 2.5vw, 1.1rem); color: var(--text-soft); font-style: italic; margin-bottom: clamp(0.8rem, 2.5vw, 1.5rem); }
+
+    .qa {
+      background: var(--dark-card); border: 1px solid var(--gray); border-radius: clamp(0.6rem, 2vw, 1rem);
+      padding: clamp(1rem, 3.5vw, 2rem); margin-bottom: clamp(1rem, 2.5vw, 1.5rem);
+    }
+    .qa .q { font-size: clamp(1.1rem, 3.5vw, 1.6rem); font-weight: 700; color: var(--text); margin-bottom: 0.2em; }
+    .qa .q b { color: var(--cyan); font-weight: 800; }
+    .qa .qpt { font-size: clamp(0.85rem, 2.6vw, 1.15rem); color: var(--text-soft); font-style: italic; margin-bottom: clamp(0.8rem, 2.5vw, 1.5rem); }
+    .qa .a { font-size: clamp(1rem, 3vw, 1.35rem); line-height: 2; }
+    .qa .ok { color: #55ff55; }
+    .qa .no { color: #ff6b6b; }
+    .qa .apt { color: var(--text-soft); font-size: clamp(0.8rem, 2.5vw, 1.1rem); font-style: italic; }
+
+    .vr {
+      display: flex; align-items: center; gap: clamp(0.6rem, 2vw, 1.2rem);
+      padding: clamp(0.7rem, 2.5vw, 1.2rem) 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .vr:last-child { border: none; }
+    .vr .em { font-size: clamp(1.5rem, 5vw, 2.5rem); width: clamp(2.2rem, 7vw, 3.5rem); text-align: center; flex-shrink: 0; }
+    .vr .ven { font-weight: 800; font-size: clamp(1rem, 3.5vw, 1.5rem); color: #fff; min-width: clamp(5rem, 18vw, 10rem); }
+    .vr .vpt { font-family: 'Switzer', sans-serif; font-size: clamp(0.75rem, 2.5vw, 1.05rem); color: var(--text-dim); }
+    .vdiv { height: 1px; background: var(--gray); margin: clamp(0.5rem, 1.5vw, 1rem) 0; }
+
+    .cheat { border: 1px solid var(--gray); border-radius: clamp(0.6rem, 2vw, 1rem); overflow: hidden; }
+    .crow { padding: clamp(1rem, 3.5vw, 2rem); border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .crow:last-child { border: none; }
+    .crow .cl { font-family: 'Switzer', sans-serif; font-size: clamp(0.8rem, 2.5vw, 1.1rem); font-weight: 800; color: var(--cyan); margin-bottom: clamp(0.6rem, 2vw, 1.2rem); }
+    .crow .cols { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(0.8rem, 2.5vw, 1.5rem); }
+    .crow .col h4 { font-size: clamp(0.55rem, 1.8vw, 0.8rem); font-family: 'Switzer', sans-serif; letter-spacing: 0.1em; color: var(--text-soft); margin-bottom: 0.4em; }
+    .crow .col .val { font-size: clamp(1rem, 3.5vw, 1.5rem); font-weight: 700; color: var(--text); }
+    .crow .col .val b { color: var(--cyan); font-weight: 800; }
+    .crow .col .vpt { font-size: clamp(0.7rem, 2.2vw, 0.95rem); color: var(--text-soft); font-style: italic; margin-top: 0.3em; }
+
+    footer { width: 100%; text-align: center; border-top: 1px solid var(--gray); }
+    .footer-inner { max-width: 900px; margin: 0 auto; padding: clamp(2rem, 6vw, 4rem) clamp(1rem, 4vw, 2.5rem); }
+    footer p { font-family: 'Switzer', sans-serif; font-size: clamp(0.7rem, 2.2vw, 0.95rem); color: var(--text-dim); letter-spacing: 0.15em; line-height: 2.2; }
+    footer .fp { color: var(--text-soft); }
+
+    @media (max-width: 420px) {
+      .cg { gap: 0.4rem; }
+      .ci .vb { font-size: clamp(1.2rem, 6vw, 1.8rem); }
+      .crow .cols { grid-template-columns: 1fr; gap: 1rem; }
+      .vr .ven { min-width: auto; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="frame">
+  <!-- HERO: titulo da aula -->
+  <div class="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-tag">Lesson 15 — Anotações</div>
+    <h1><span class="o">I LIKE IT</span><br><span class="c">A LOT</span><br>&amp; Occupations</h1>
+    <p class="hero-sub">Intensifying actions and talking about jobs</p>
+    <p class="hero-pt">Intensificando ações e falando sobre profissões</p>
+    <div class="scroll-hint"><span>ROLAR</span><i></i></div>
+  </div>
+
+  <div class="wrap">
+    <!-- SEÇÃO 01: A LOT -->
+    <section>
+      <div class="num">01 — INTENSIFIER</div>
+      <h2 class="stitle">O uso do <span class="c">A Lot</span></h2>
+      <p class="spt">Intensifying the action</p>
+      <p class="sdesc">Usamos <b>a lot</b> no final da frase para elevar o grau de intensidade de um verbo (como "gostar", "correr" ou "beber").<br><span class="p">Equivale ao nosso "muito" ou "bastante".</span></p>
+      
+      <div class="ex">
+        <div class="en">I like tererê <b>a lot</b>.</div>
+        <div class="pt">Eu gosto bastante de tererê.</div>
+      </div>
+      <div class="ex">
+        <div class="en">I drink tererê <b>a lot</b>.</div>
+        <div class="pt">Eu bebo muito tererê.</div>
+      </div>
+      <div class="ex">
+        <div class="en">I walked <b>a lot</b>.</div>
+        <div class="pt">Eu caminhei bastante.</div>
+      </div>
+    </section>
+
+    <!-- SEÇÃO 02: INTRODUCTIONS -->
+    <section>
+      <div class="num">02 — INTRODUCTIONS</div>
+      <h2 class="stitle">Apresentando <span class="c">Pessoas</span></h2>
+      <p class="sdesc">O professor <b>Matheus</b> explicou como apresentar alguém usando "This is".</p>
+      
+      <div class="card">
+        <h3><span>👋</span> Introducing</h3>
+        <div class="sub">This is Sarah</div>
+        <div class="note">Esta é a Sarah</div>
+        <p>Sheva is <b>introducing herself</b> to Sarah.<br>
+        <span class="p">(Sheva está se apresentando para a Sarah.)</span></p>
+      </div>
+    </section>
+
+    <!-- SEÇÃO 03: PROFESSIONS GRID -->
+    <section>
+      <div class="num">03 — OCCUPATIONS</div>
+      <h2 class="stitle">O que você <span class="c">faz?</span></h2>
+      <p class="spt">What do you do?</p>
+      <p class="sdesc">Para perguntar a profissão de alguém, usamos a estrutura abaixo. <br><span class="p">Pronúncia rápida: "Uat-du-riú-du".</span></p>
+      
+      <div class="cg">
+        <div class="ci hl">
+          <div class="pro">PROFESSION</div>
+          <div class="ptr">ə-ˈkau̇n-tənt</div>
+          <div class="vb">Accountant</div>
+          <div class="mn">Contador(a)</div>
+        </div>
+        <div class="ci">
+          <div class="pro">PROFESSION</div>
+          <div class="ptr">ˈfärmer</div>
+          <div class="vb">Farmer</div>
+          <div class="mn">Agricultor</div>
+        </div>
+        <div class="ci">
+          <div class="pro">PROFESSION</div>
+          <div class="ptr">ˈen-jə-ˈnir</div>
+          <div class="vb">Engineer</div>
+          <div class="mn">Engenheiro(a)</div>
+        </div>
+        <div class="ci">
+          <div class="pro">PROFESSION</div>
+          <div class="ptr">ˈtē-chər</div>
+          <div class="vb">Teacher</div>
+          <div class="mn">Professor(a)</div>
+        </div>
+        <div class="ci full">
+          <div class="pro">TIP</div>
+          <div class="ptr">Dica do Matheus</div>
+          <div class="vb">Reverso Context</div>
+          <div class="mn">Use para pesquisar sua profissão específica.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEÇÃO 04: GRAMMAR RULE -->
+    <section>
+      <div class="num">04 — GRAMMAR</div>
+      <h2 class="stitle">Artigos <span class="c">A / An</span></h2>
+      <div class="rule">
+        <span class="rl">SINGULAR ARTICLES</span>
+        <span class="ok">✓ I am <b>a</b> teacher. (Antes de som de consoante)</span><br>
+        <span class="ok">✓ I am <b>an</b> accountant. (Antes de som de vogal)</span><br>
+        <span class="no">✗ I am a accountant.</span>
+        <div class="rn">Usamos "a" ou "an" para dizer "um" ou "uma" antes de profissões.</div>
+      </div>
+    </section>
+
+    <!-- SEÇÃO 05: PRÁTICA -->
+    <section>
+      <div class="num">05 — PRACTICE</div>
+      <h2 class="stitle">Conversação</h2>
+      <div class="qa">
+        <div class="q"><b>Do you like pizza a lot?</b></div>
+        <div class="qpt">Você gosta muito de pizza?</div>
+        <div class="a">
+          <span class="ok">✓ Yes, I like pizza a lot.</span><br>
+          <span class="no">✗ No, I don't like pizza a lot.</span>
+        </div>
+        <div class="apt">Lembre-se de responder em voz alta para praticar a fluidez!</div>
+      </div>
+    </section>
+
+    <!-- SEÇÃO 06: VOCABULARY -->
+    <section>
+      <div class="num">06 — GENDER</div>
+      <h2 class="stitle">Man vs. <span class="c">Woman</span></h2>
+      <div class="vr"><div class="em">👨</div><div class="ven">Man</div><div class="vpt">Homem (Pronúncia: Mén)</div></div>
+      <div class="vdiv"></div>
+      <div class="vr"><div class="em">👩</div><div class="ven">Woman</div><div class="vpt">Mulher (Pronúncia: Uú-man)</div></div>
+      <div class="vdiv"></div>
+      <div class="vr"><div class="em">⚖️</div><div class="ven">Lawyer</div><div class="vpt">Advogado(a)</div></div>
+      <div class="vdiv"></div>
+      <div class="vr"><div class="em">🩺</div><div class="ven">Nurse</div><div class="vpt">Enfermeiro(a)</div></div>
+    </section>
+
+    <!-- SEÇÃO 07: CHEAT SHEET -->
+    <section>
+      <div class="num">07 — CHEAT SHEET</div>
+      <h2 class="stitle">Quick <span class="c">Reference</span></h2>
+      <div class="cheat">
+        <div class="crow">
+          <div class="cl">LOCATIONS (ONDE ESTÁ?)</div>
+          <div class="cols">
+            <div class="col">
+              <h4>AT WORK</h4>
+              <div class="val">The man is <b>at work</b></div>
+              <div class="vpt">O homem está no trabalho</div>
+            </div>
+            <div class="col">
+              <h4>AT SCHOOL</h4>
+              <div class="val">She is <b>at school</b></div>
+              <div class="vpt">Ela está na escola</div>
+            </div>
+          </div>
+        </div>
+        <div class="crow">
+          <div class="cl">INTENSITY</div>
+          <div class="cols">
+            <div class="col">
+              <h4>A LOT</h4>
+              <div class="val">I like it <b>a lot</b></div>
+              <div class="vpt">Gosto muito</div>
+            </div>
+            <div class="col">
+              <h4>JUST LIKE</h4>
+              <div class="val">I <b>just</b> like it</div>
+              <div class="vpt">Eu só gosto (sem intensidade)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <p>ALOUD — ANOTAÇÕES DA AULA COM O PROFESSOR MATHEUS<br>
+      <span class="fp">Estude. Pratique. Fale.</span></p>
+    </div>
+  </footer>
+</div>
+
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a2365fe45981195d',t:'MTc4NTQzNTU5Nw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+</body></html>
